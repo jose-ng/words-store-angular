@@ -8,7 +8,7 @@ import { NotFoundComponent } from './shared/components/not-found/not-found.compo
 
 @NgModule({
   declarations: [AppComponent, NotFoundComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule.withServerTransition({ appId: 'serverApp' }), AppRoutingModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })

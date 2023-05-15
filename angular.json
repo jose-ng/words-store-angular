@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/words-store",
+            "outputPath": "dist/words-store/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -107,6 +107,60 @@
               "src/**/*.html"
             ]
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/words-store/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "inlineStyleLanguage": "scss"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "words-store:build:development",
+              "serverTarget": "words-store:server:development"
+            },
+            "production": {
+              "browserTarget": "words-store:build:production",
+              "serverTarget": "words-store:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "words-store:build:production",
+              "serverTarget": "words-store:server:production"
+            },
+            "development": {
+              "browserTarget": "words-store:build:development",
+              "serverTarget": "words-store:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
