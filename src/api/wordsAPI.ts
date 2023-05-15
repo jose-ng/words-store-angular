@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import Word from './modelsDB/word';
+import connectMongo from './utils/connectMongo';
 
-export class WordAPi {
+export class WordsAPI {
   songRoute(app: any): void {
     // Create Word
     app
@@ -19,14 +20,21 @@ export class WordAPi {
     // Get All Words
     app
       .route('/api/get')
-      .get((req: Request, res: Response, next: NextFunction) => {
-        Word.find((error: any, data: any) => {
-          if (error) {
-            return next(error);
-          } else {
-            res.json(data);
-          }
-        });
+      .get(async (req: Request, res: Response, next: NextFunction) => {
+        try {
+          await connectMongo();
+          const words = await Word.find({ text_es: 'vision' }).exec();
+          // Word.find((error: any, data: any) => {
+          //   if (error) {
+          //     return next(error);
+          //   } else {
+          //     res.json(data);
+          //   }
+          // });
+          res.json(words);
+        } catch (err) {
+          res.status(400).json({ error: err });
+        }
       });
 
     // Get Single Word
