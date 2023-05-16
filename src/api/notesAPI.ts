@@ -4,31 +4,29 @@ import connectMongo from './utils/connectMongo';
 import { allowCreate } from './utils/misc';
 import * as express from 'express';
 
-export class WordsAPI {
+export class NotesAPI {
   api(app: express.Express): void {
-    // Create Word
-    app
-      .route('/api/word')
-      .post(async (req: Request, res: Response) => {
-        try {
-          if (!allowCreate(req.body.code)) {
-            res.status(403).json({ error: 'forbbiden' });
-            return;
-          }
-
-          await connectMongo();
-          const newWord = req.body;
-          delete newWord.code;
-          const word = await Word.create(newWord);
-
-          res.status(201).json({ word });
-        } catch (err) {
-          res.status(400).json({ error: 'Internal server error' });
+    // Create Note
+    app.route('/api/note').post(async (req: Request, res: Response) => {
+      try {
+        if (!allowCreate(req.body.code)) {
+          res.status(403).json({ error: 'forbbiden' });
+          return;
         }
-      });
 
-    // Get All Words
-    app.route('/api/word').get(async (req: Request, res: Response) => {
+        await connectMongo();
+        const newWord = req.body;
+        delete newWord.code;
+        const word = await Word.create(newWord);
+
+        res.status(201).json({ word });
+      } catch (err) {
+        res.status(400).json({ error: 'Internal server error' });
+      }
+    });
+
+    // Get All Notes
+    app.route('/api/note').get(async (req: Request, res: Response) => {
       try {
         await connectMongo();
         const { body } = req;
@@ -49,13 +47,13 @@ export class WordsAPI {
         const totalWords = await Word.count(params).exec();
         res.status(200).json({ words, totalWords });
       } catch (err) {
-        res.status(400).json({ error: err });
+        res.status(400).json({ error: 'Internal server error' });
       }
     });
 
     // Get Single Word
     app
-      .route('/api/word/:id')
+      .route('/api/note/:id')
       .get((req: Request, res: Response, next: NextFunction) => {
         const id: any = req.params['id'];
         Word.findById(id, (error: any, data: any) => {

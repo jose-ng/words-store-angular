@@ -1,5 +1,5 @@
 import 'zone.js/node';
-
+import * as dotenv from 'dotenv';
 import { APP_BASE_HREF } from '@angular/common';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
@@ -8,8 +8,11 @@ import { join } from 'path';
 
 import { AppServerModule } from './src/main.server';
 import { WordsAPI } from 'src/api/wordsAPI';
+import { NotesAPI } from 'src/api/notesAPI';
 
-const songRoute: WordsAPI = new WordsAPI();
+dotenv.config();
+const wordsAPI: WordsAPI = new WordsAPI();
+const notesAPI: NotesAPI = new NotesAPI();
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -43,7 +46,8 @@ export function app(): express.Express {
     })
   );
 
-  songRoute.songRoute(server);
+  wordsAPI.api(server);
+  notesAPI.api(server);
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {

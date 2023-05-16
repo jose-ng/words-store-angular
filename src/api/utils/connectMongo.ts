@@ -1,6 +1,6 @@
 /* This is a database connection function*/
 import mongoose from 'mongoose';
-const dotenv = require('dotenv');
+import * as dotenv from 'dotenv';
 
 dotenv.config();
 
