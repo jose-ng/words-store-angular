@@ -9,7 +9,11 @@ import { SearchComponent } from './shared/components/search/search.component';
 
 @NgModule({
   declarations: [AppComponent, NotFoundComponent, SearchComponent],
-  imports: [BrowserModule.withServerTransition({ appId: 'serverApp' }), AppRoutingModule, HttpClientModule],
+  imports: [
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    AppRoutingModule,
+    HttpClientModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

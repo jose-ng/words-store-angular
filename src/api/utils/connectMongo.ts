@@ -1,5 +1,8 @@
 /* This is a database connection function*/
 import mongoose from 'mongoose';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 const connection = {
   isConnected: mongoose.ConnectionStates.uninitialized,
@@ -14,7 +17,7 @@ const MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@${DB_HOST}/${DB_NAME}?retry
 const connectMongo = async () => {
   console.log('USER', USER);
   /* check if we have connection to our databse*/
-  if (connection.isConnected) {
+  if (connection.isConnected === mongoose.ConnectionStates.connected) {
     return;
   }
   const db = await mongoose.connect(MONGO_URI);
