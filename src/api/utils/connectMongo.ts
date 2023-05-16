@@ -1,19 +1,18 @@
 /* This is a database connection function*/
 import mongoose from 'mongoose';
-import * as dotenv from 'dotenv';
 
-dotenv.config();
+const connection = {
+  isConnected: mongoose.ConnectionStates.uninitialized,
+};
 
-const connection: any = {};
-
-const USER = encodeURIComponent(process.env['DB_USER']!);
-const PASSWORD = encodeURIComponent(process.env['DB_PASSWORD']!);
-const DB_NAME = encodeURIComponent(process.env['DB_NAME']!);
-const DB_HOST = encodeURIComponent(process.env['DB_HOST']!);
+const USER = encodeURIComponent(process.env['DB_USER'] ?? false);
+const PASSWORD = encodeURIComponent(process.env['DB_PASSWORD'] ?? false);
+const DB_NAME = encodeURIComponent(process.env['DB_NAME'] ?? false);
+const DB_HOST = encodeURIComponent(process.env['DB_HOST'] ?? false);
 const MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`;
 
 const connectMongo = async () => {
-  console.log("USER",USER)
+  console.log('USER', USER);
   /* check if we have connection to our databse*/
   if (connection.isConnected) {
     return;

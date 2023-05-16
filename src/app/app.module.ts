@@ -5,9 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
+import { SearchComponent } from './shared/components/search/search.component';
 
 @NgModule({
-  declarations: [AppComponent, NotFoundComponent],
+  declarations: [AppComponent, NotFoundComponent, SearchComponent],
   imports: [BrowserModule.withServerTransition({ appId: 'serverApp' }), AppRoutingModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
