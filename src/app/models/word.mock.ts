@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
 
-import { Words } from './words';
+import { Word } from './word.model';
 
-export const generateOneWord = (): Words => {
+export const generateOneWord = (): Word => {
   return {
     id: faker.string.uuid(),
     text_es: faker.commerce.productName(),
@@ -11,8 +11,8 @@ export const generateOneWord = (): Words => {
   };
 };
 
-export const generateManyWords = (size = 10): Words[] => {
-  const words: Words[] = [];
+export const generateManyWords = (size = 10): Word[] => {
+  const words: Word[] = [];
   for (let index = 0; index < size; index++) {
     words.push(generateOneWord());
   }

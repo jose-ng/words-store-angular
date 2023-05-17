@@ -4,7 +4,7 @@ import connectMongo from './utils/connectMongo';
 import { allowCreate } from './utils/misc';
 import * as express from 'express';
 
-export class WordsAPI {
+export class WordAPI {
   api(app: express.Express): void {
     // Create Word
     app

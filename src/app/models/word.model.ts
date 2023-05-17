@@ -1,4 +1,4 @@
-export interface Words {
+export interface Word {
   id: string;
   text_es: string;
   text_en: string;

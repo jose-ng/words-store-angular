@@ -4,7 +4,7 @@ import connectMongo from './utils/connectMongo';
 import { allowCreate } from './utils/misc';
 import * as express from 'express';
 
-export class NotesAPI {
+export class NoteAPI {
   api(app: express.Express): void {
     // Create Note
     app.route('/api/note').post(async (req: Request, res: Response) => {

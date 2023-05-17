@@ -3,8 +3,8 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { WordsService } from './words.service';
-import { Words } from '../models/words';
+import { WordsService } from './word.service';
+import { Word } from '../models/word.model';
 import { environment } from 'src/environments/environment';
 import { generateManyWords } from '../models/word.mock';
 
@@ -28,7 +28,7 @@ fdescribe('WordsService', () => {
   describe('Tests for getWords', () => {
     it('should return any length', (doneFn) => {
       // Arrange
-      const mockData: Words[] = generateManyWords();
+      const mockData: Word[] = generateManyWords();
       // Act
       service.getWords('Valor').subscribe((data) => {
         // Assert

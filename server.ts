@@ -7,12 +7,12 @@ import { existsSync } from 'fs';
 import { join } from 'path';
 
 import { AppServerModule } from './src/main.server';
-import { WordsAPI } from 'src/api/wordsAPI';
-import { NotesAPI } from 'src/api/notesAPI';
+import { WordAPI } from 'src/api/wordAPI';
+import { NoteAPI } from 'src/api/noteAPI';
 
 dotenv.config();
-const wordsAPI: WordsAPI = new WordsAPI();
-const notesAPI: NotesAPI = new NotesAPI();
+const wordAPI: WordAPI = new WordAPI();
+const noteAPI: NoteAPI = new NoteAPI();
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -46,8 +46,8 @@ export function app(): express.Express {
     })
   );
 
-  wordsAPI.api(server);
-  notesAPI.api(server);
+  wordAPI.api(server);
+  noteAPI.api(server);
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
