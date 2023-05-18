@@ -10,7 +10,8 @@ import { WordsService } from 'src/app/services/word.service';
 })
 export class HomeComponent implements OnInit {
   words: Word[] = [];
-  totalWords = 0;
+  totalResults = 0;
+  showNotes = false;
   params: Params = { q: '', skip: 0, limit: 20 };
 
   constructor(private wordService: WordsService) {}
@@ -22,7 +23,7 @@ export class HomeComponent implements OnInit {
   loadInfo() {
     this.wordService.getWords(this.params).subscribe((data) => {
       this.words = data.words;
-      this.totalWords = data.totalWords;
+      this.totalResults = data.totalWords;
     });
   }
 
