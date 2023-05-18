@@ -8,7 +8,7 @@ import { Word } from '../models/word.model';
 import { environment } from 'src/environments/environment';
 import { generateManyWords } from '../models/word.mock';
 
-fdescribe('WordsService', () => {
+describe('WordsService', () => {
   let service: WordsService;
   let httpController: HttpTestingController;
 
@@ -30,14 +30,15 @@ fdescribe('WordsService', () => {
       // Arrange
       const mockData: Word[] = generateManyWords();
       // Act
-      service.getWords('Valor').subscribe((data) => {
+      const params = { q: 'Valor', skip: 0, limit: 20 };
+      service.getWords(params).subscribe((data) => {
         // Assert
         expect(data.length).toEqual(mockData.length);
         doneFn();
       });
 
       //http config
-      const url = `${environment.API_URL}/word?q=Valor`;
+      const url = `${environment.API_URL}/word?q=Valor&skip=0&limit=20`;
       const req = httpController.expectOne(url);
       req.flush(mockData);
       httpController.verify();
