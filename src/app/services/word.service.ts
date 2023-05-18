@@ -12,6 +12,9 @@ export class WordsService {
 
   getWords(p: Params) {
     const params = new HttpParams({ fromObject: { ...p } });
-    return this.http.get<Word[]>(`${environment.API_URL}/word`, { params });
+    return this.http.get<{ words: Word[]; totalWords: number }>(
+      `${environment.API_URL}/word`,
+      { params }
+    );
   }
 }

@@ -7,32 +7,31 @@ import * as express from 'express';
 export class WordAPI {
   api(app: express.Express): void {
     // Create Word
-    app
-      .route('/api/word')
-      .post(async (req: Request, res: Response) => {
-        try {
-          if (!allowCreate(req.body.code)) {
-            res.status(403).json({ error: 'forbbiden' });
-            return;
-          }
-
-          await connectMongo();
-          const newWord = req.body;
-          delete newWord.code;
-          const word = await Word.create(newWord);
-
-          res.status(201).json({ word });
-        } catch (err) {
-          res.status(400).json({ error: 'Internal server error' });
+    app.route('/api/word').post(async (req: Request, res: Response) => {
+      try {
+        if (!allowCreate(req.body.code)) {
+          res.status(403).json({ error: 'forbbiden' });
+          return;
         }
-      });
+
+        await connectMongo();
+        const newWord = req.body;
+        delete newWord.code;
+        const word = await Word.create(newWord);
+
+        res.status(201).json({ word });
+      } catch (err) {
+        res.status(400).json({ error: 'Internal server error' });
+      }
+    });
 
     // Get All Words
     app.route('/api/word').get(async (req: Request, res: Response) => {
       try {
         await connectMongo();
-        const { body } = req;
-        const { q, skip, limit } = body;
+        const { query } = req;
+        const { q, skip, limit } = query;
+
         let params = {};
         if (q)
           params = {
@@ -42,8 +41,8 @@ export class WordAPI {
             ],
           };
         const words = await Word.find(params)
-          .skip(skip * limit)
-          .limit(limit)
+          .skip((skip as unknown as number) * (limit as unknown as number))
+          .limit(limit as unknown as number)
           .sort({ rating: 'desc' })
           .exec();
         const totalWords = await Word.count(params).exec();

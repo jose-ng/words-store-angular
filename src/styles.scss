@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'material-icons/iconfont/material-icons.css';
+@import "material-icons/iconfont/material-icons.css";
 // Colors
 $primaryColor: #005edc;
 $grayColor: #626366;
@@ -7,3 +7,7 @@ $accentColor: #febd11;
 // Sizes
 $medium: 640px;
 $x-large: 1200px;
+
+li {
+  margin-bottom: 0;
+}
