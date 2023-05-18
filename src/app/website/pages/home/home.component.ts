@@ -11,16 +11,21 @@ import { WordsService } from 'src/app/services/word.service';
 export class HomeComponent implements OnInit {
   words: Word[] = [];
   params: Params = { q: '', skip: 0, limit: 20 };
-  
+
   constructor(private wordService: WordsService) {}
 
   ngOnInit(): void {
-    this.wordService.getWords(this.params).subscribe((words) => {
-      this.words = words;
-      console.log(
-        '🚀 ~ file: home.component.ts:16 ~ HomeComponent ~ this.wordService.getWords ~ words:',
-        words
-      );
-    });
+    // this.wordService.getWords(this.params).subscribe((words) => {
+    //   this.words = words;
+    //   console.log(
+    //     '🚀 ~ file: home.component.ts:16 ~ HomeComponent ~ this.wordService.getWords ~ words:',
+    //     words
+    //   );
+    // });
+    console.log(1);
+  }
+
+  searchHandler(query: string) {
+    this.params.q = query;
   }
 }
