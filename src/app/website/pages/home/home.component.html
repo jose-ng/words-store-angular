@@ -1,6 +1,11 @@
 <app-search (search)="searchHandler($event)"></app-search>
-<span> Total: {{words.length}} / {{ totalResults }}</span>
-<app-list-items [listItems]="words"></app-list-items>
+<app-list-items
+  [listItems]="words"
+  [totalShowRecords]="totalShowRecords"
+  [totalResults]="totalResults"
+></app-list-items>
 <ng-container *ngIf="words.length > 0">
-  <button class="button buton-outline" type="button">Load More</button>
+  <button class="button buton-outline" type="button" (click)="showMore()" [disabled]="loading || words.length >= totalResults">
+    Load More
+  </button>
 </ng-container>

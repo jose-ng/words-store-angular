@@ -8,4 +8,6 @@ import { Word } from 'src/app/models/word.model';
 })
 export class ListItemsComponent {
   @Input() listItems!: Word[];
+  @Input() totalResults = 0;
+  @Input() totalShowRecords = 0;
 }

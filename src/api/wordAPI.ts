@@ -31,7 +31,6 @@ export class WordAPI {
         await connectMongo();
         const { query } = req;
         const { q, skip, limit } = query;
-
         let params = {};
         if (q)
           params = {
