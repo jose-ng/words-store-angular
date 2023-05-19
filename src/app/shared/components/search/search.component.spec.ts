@@ -77,15 +77,15 @@ describe('SearchComponent', () => {
     component.search.subscribe((value) => {
       searchQueryText = value;
     });
-
+    component.searchSubject$.subscribe((query) => {
+      component.search.emit(query)
+    });
     // Act
     inputEl.value = searchQuery;
     inputEl.dispatchEvent(new Event('input')); // useful for use the ngModel
-    component.search.emit(searchQuery);
+    component.searchSubject$.next(searchQuery);
     fixture.detectChanges();
-
     // Assert
     expect(searchQueryText).toContain(searchQuery);
   });
-
 });
