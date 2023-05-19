@@ -4,7 +4,6 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { WordsService } from './word.service';
-import { Word } from '../models/word.model';
 import { environment } from 'src/environments/environment';
 import { generateManyWords } from '../models/word.mock';
 
@@ -28,12 +27,12 @@ describe('WordsService', () => {
   describe('Tests for getWords', () => {
     it('should return any length', (doneFn) => {
       // Arrange
-      const mockData: Word[] = generateManyWords();
+      const mockData = { words: generateManyWords(), totalItems: 10 };
       // Act
       const params = { q: 'Valor', skip: 0, limit: 20 };
       service.getWords(params).subscribe((data) => {
         // Assert
-        expect(data.length).toEqual(mockData.length);
+        expect(data.words.length).toEqual(mockData.words.length);
         doneFn();
       });
 
