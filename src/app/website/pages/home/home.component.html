@@ -1,11 +1,23 @@
-<app-search (search)="searchHandler($event)"></app-search>
+<app-search
+  (search)="searchHandler($event)"
+  (clear)="clearSeach()"
+></app-search>
+<div>
+  Show notes
+  <input type="checkbox" [(ngModel)]="showNotes" />
+</div>
 <app-list-items
   [listItems]="words"
-  [totalShowRecords]="totalShowRecords"
-  [totalResults]="totalResults"
+  [totalShowedItems]="totalShowedItems"
+  [totalItems]="totalItems"
 ></app-list-items>
 <ng-container *ngIf="words.length > 0">
-  <button class="button buton-outline" type="button" (click)="showMore()" [disabled]="loading || words.length >= totalResults">
+  <button
+    class="button buton-outline"
+    type="button"
+    (click)="showMore()"
+    [disabled]="loading || words.length >= totalItems"
+  >
     Load More
   </button>
 </ng-container>

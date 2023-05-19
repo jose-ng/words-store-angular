@@ -6,6 +6,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SharedModule } from '../shared/shared.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,6 @@ import { SharedModule } from '../shared/shared.module';
     LayoutComponent,
     NavbarComponent,
   ],
-  imports: [CommonModule, WebsiteRoutingModule, SharedModule],
+  imports: [CommonModule, WebsiteRoutingModule, SharedModule, FormsModule],
 })
 export class WebsiteModule {}

@@ -10,6 +10,7 @@ export class SearchComponent {
   searchQuery = '';
   searchSubject$: Subject<string> = new Subject<string>();
   @Output() search = new EventEmitter<string>();
+  @Output() clear = new EventEmitter<boolean>();
 
   constructor() {
     this.searchSubject$.pipe(debounceTime(300)).subscribe((query) => {
@@ -20,5 +21,10 @@ export class SearchComponent {
 
   searchInput() {
     this.searchSubject$.next(this.searchQuery);
+  }
+
+  clearInput() {
+    this.searchQuery = '';
+    this.clear.emit(true);
   }
 }

@@ -10,9 +10,9 @@ import { WordsService } from 'src/app/services/word.service';
 })
 export class HomeComponent implements OnInit {
   words: Word[] = [];
-  totalResults = 0;
+  totalItems = 0;
   showNotes = false;
-  totalShowRecords = 0;
+  totalShowedItems = 0;
   params: Params = { q: '', skip: 0, limit: 20 };
   loading = false;
 
@@ -24,20 +24,22 @@ export class HomeComponent implements OnInit {
 
   loadInfo() {
     this.loading = true;
-    this.wordService.getWords(this.params).subscribe((data) => {
-      if (this.words.length > 0 && this.params.skip > 0) {
-        this.words = [...this.words, ...data.words];
-        this.totalShowRecords = this.params.limit * (this.params.skip + 1);
-        this.totalResults = data.totalWords;
-        if (this.totalShowRecords > this.totalResults)
-          this.totalShowRecords = this.totalResults;
-      } else {
-        this.words = data.words;
-        this.totalShowRecords = data.words.length;
-        this.totalResults = data.totalWords;
-      }
-      this.loading = false;
-    });
+    if (!this.showNotes) {
+      this.wordService.getWords(this.params).subscribe((data) => {
+        if (this.words.length > 0 && this.params.skip > 0) {
+          this.words = [...this.words, ...data.words];
+          this.totalShowedItems = this.params.limit * (this.params.skip + 1);
+          this.totalItems = data.totalWords;
+          if (this.totalShowedItems > this.totalItems)
+            this.totalShowedItems = this.totalItems;
+        } else {
+          this.words = data.words;
+          this.totalShowedItems = data.words.length;
+          this.totalItems = data.totalWords;
+        }
+        this.loading = false;
+      });
+    }
   }
 
   searchHandler(query: string) {
@@ -47,6 +49,11 @@ export class HomeComponent implements OnInit {
 
   showMore() {
     this.params.skip += 1;
+    this.loadInfo();
+  }
+
+  clearSeach() {
+    this.params.skip = 0;
     this.loadInfo();
   }
 }
