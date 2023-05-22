@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Word from './modelsDB/word';
+import Note from './modelsDB/note';
 import connectMongo from './utils/connectMongo';
 import { allowCreate } from './utils/misc';
 import * as express from 'express';
@@ -15,11 +15,11 @@ export class NoteAPI {
         }
 
         await connectMongo();
-        const newWord = req.body;
-        delete newWord.code;
-        const word = await Word.create(newWord);
+        const newNote = req.body;
+        delete newNote.code;
+        const note = await Note.create(newNote);
 
-        res.status(201).json({ word });
+        res.status(201).json({ note });
       } catch (err) {
         res.status(400).json({ error: 'Internal server error' });
       }
@@ -39,13 +39,13 @@ export class NoteAPI {
               { text_es: { $regex: q, $options: 'i' } },
             ],
           };
-        const words = await Word.find(params)
+        const notes = await Note.find(params)
           .skip((skip as unknown as number) * (limit as unknown as number))
           .limit(limit as unknown as number)
           .sort({ rating: 'desc' })
           .exec();
-        const totalWords = await Word.count(params).exec();
-        res.status(200).json({ words, totalWords });
+        const totalNotes = await Note.count(params).exec();
+        res.status(200).json({ notes, totalNotes });
       } catch (err) {
         res.status(400).json({ error: 'Internal server error' });
       }

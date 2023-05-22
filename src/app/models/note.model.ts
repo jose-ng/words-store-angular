@@ -4,4 +4,5 @@ export interface Note {
   text: string;
   urlImg: string;
   rating: number;
+  hideAllText: boolean;
 }

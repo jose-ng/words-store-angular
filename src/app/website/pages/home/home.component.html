@@ -4,7 +4,7 @@
 ></app-search>
 <div>
   Show notes
-  <input type="checkbox" [(ngModel)]="showNotes" />
+  <input type="checkbox" [(ngModel)]="showNotes" (change)="clearSeach()" />
 </div>
 <app-list-items
   [listItems]="listItems"

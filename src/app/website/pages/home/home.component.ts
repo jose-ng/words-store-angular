@@ -53,26 +53,44 @@ export class HomeComponent implements OnInit {
           : 'notes' in data
           ? data.notes
           : [];
+
       const listItemsTotal =
         !this.showNotes && 'words' in data
           ? data.totalWords
           : 'notes' in data
           ? data.totalNotes
           : 0;
-      if (this.listItems.length > 0 && this.params.skip > 0) {
-        this.listItems = !this.showNotes
-          ? ([...this.listItems, ...listItems] as Word[])
-          : ([...this.listItems, ...listItems] as Note[]);
 
+      this.listItems = !this.showNotes
+        ? ([
+            ...this.listItems,
+            ...(listItems.map((item) => {
+              return {
+                ...item,
+                hideAllText: true,
+              };
+            })),
+          ] as Word[])
+        : ([
+            ...this.listItems,
+            ...(listItems.map((item) => {
+              return {
+                ...item,
+                hideAllText: true,
+              };
+            })),
+          ] as Note[]);
+
+      if (this.listItems.length > 0 && this.params.skip > 0) {
         this.totalShowedItems = this.params.limit * (this.params.skip + 1);
         this.totalItems = listItemsTotal;
         if (this.totalShowedItems > this.totalItems)
           this.totalShowedItems = this.totalItems;
       } else {
-        this.listItems = listItems;
         this.totalShowedItems = listItems.length;
         this.totalItems = listItemsTotal;
       }
+
       this.loading = false;
     });
   }
@@ -93,5 +111,10 @@ export class HomeComponent implements OnInit {
     this.totalItems = 0;
     this.totalShowedItems = 0;
     this.loadInfo();
+  }
+
+  changeShowNotes() {
+    this.showNotes = !this.showNotes;
+    this.clearSeach();
   }
 }

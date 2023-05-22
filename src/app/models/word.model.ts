@@ -3,4 +3,5 @@ export interface Word {
   text_es: string;
   text_en: string;
   rating: number;
+  hideAllText: boolean;
 }
