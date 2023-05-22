@@ -7,16 +7,17 @@
   <input type="checkbox" [(ngModel)]="showNotes" />
 </div>
 <app-list-items
-  [listItems]="words"
+  [listItems]="listItems"
   [totalShowedItems]="totalShowedItems"
   [totalItems]="totalItems"
+  [showNotes]="showNotes"
 ></app-list-items>
-<ng-container *ngIf="words.length > 0">
+<ng-container *ngIf="listItems.length > 0">
   <button
     class="button buton-outline"
     type="button"
     (click)="showMore()"
-    [disabled]="loading || words.length >= totalItems"
+    [disabled]="loading || listItems.length >= totalItems"
   >
     Load More
   </button>

@@ -1,6 +1,4 @@
-<div> Total: {{ totalShowedItems }} / {{ totalItems }}</div>
-<ul>
-  <li *ngFor="let item of listItems">
-    {{ item.text_en }}: {{ item.text_es }}
-  </li>
+<div>Total: {{ totalShowedItems }} / {{ totalItems }}</div>
+<ul *ngIf="!showNotes">
+  <li *ngFor="let item of words">{{ item.text_en }}: {{ item.text_es }}</li>
 </ul>

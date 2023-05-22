@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Note } from 'src/app/models/note.model';
 import { Params } from 'src/app/models/request.model';
 import { Word } from 'src/app/models/word.model';
-import { WordsService } from 'src/app/services/word.service';
+import { NoteService } from 'src/app/services/note.service';
+import { WordService } from 'src/app/services/word.service';
 
 @Component({
   selector: 'app-home',
@@ -9,14 +12,18 @@ import { WordsService } from 'src/app/services/word.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  words: Word[] = [];
+  listItems: Word[] | Note[] = [];
+
   totalItems = 0;
   showNotes = false;
   totalShowedItems = 0;
   params: Params = { q: '', skip: 0, limit: 20 };
   loading = false;
 
-  constructor(private wordService: WordsService) {}
+  constructor(
+    private wordService: WordService,
+    private noteService: NoteService
+  ) {}
 
   ngOnInit(): void {
     this.loadInfo();
@@ -24,22 +31,50 @@ export class HomeComponent implements OnInit {
 
   loadInfo() {
     this.loading = true;
+    let serviceFunction: Observable<
+      | { words: Word[]; totalWords: number }
+      | { notes: Note[]; totalNotes: number }
+    >;
+
     if (!this.showNotes) {
-      this.wordService.getWords(this.params).subscribe((data) => {
-        if (this.words.length > 0 && this.params.skip > 0) {
-          this.words = [...this.words, ...data.words];
-          this.totalShowedItems = this.params.limit * (this.params.skip + 1);
-          this.totalItems = data.totalWords;
-          if (this.totalShowedItems > this.totalItems)
-            this.totalShowedItems = this.totalItems;
-        } else {
-          this.words = data.words;
-          this.totalShowedItems = data.words.length;
-          this.totalItems = data.totalWords;
-        }
-        this.loading = false;
-      });
+      serviceFunction = this.wordService.getWords(this.params);
+    } else {
+      serviceFunction = this.noteService.getNotes(this.params);
     }
+
+    serviceFunction.subscribe((dataRaw: unknown) => {
+      const data = dataRaw as
+        | { words: Word[]; totalWords: number }
+        | { notes: Note[]; totalNotes: number };
+
+      const listItems =
+        !this.showNotes && 'words' in data
+          ? data.words
+          : 'notes' in data
+          ? data.notes
+          : [];
+      const listItemsTotal =
+        !this.showNotes && 'words' in data
+          ? data.totalWords
+          : 'notes' in data
+          ? data.totalNotes
+          : 0;
+      if (this.listItems.length > 0 && this.params.skip > 0) {
+        this.listItems = !this.showNotes
+          ? ([...this.listItems, ...listItems] as Word[])
+          : ([...this.listItems, ...listItems] as Note[]);
+
+        this.totalShowedItems = this.params.limit * (this.params.skip + 1);
+        this.totalItems = listItemsTotal;
+        if (this.totalShowedItems > this.totalItems)
+          this.totalShowedItems = this.totalItems;
+      } else {
+        this.listItems = listItems;
+        this.totalShowedItems = listItems.length;
+        this.totalItems = listItemsTotal;
+      }
+      this.loading = false;
+    });
   }
 
   searchHandler(query: string) {
@@ -53,7 +88,10 @@ export class HomeComponent implements OnInit {
   }
 
   clearSeach() {
-    this.params.skip = 0;
+    this.params = { q: '', skip: 0, limit: 20 };
+    this.listItems = [];
+    this.totalItems = 0;
+    this.totalShowedItems = 0;
     this.loadInfo();
   }
 }

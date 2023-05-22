@@ -29,8 +29,8 @@ export class NoteAPI {
     app.route('/api/note').get(async (req: Request, res: Response) => {
       try {
         await connectMongo();
-        const { body } = req;
-        const { q, skip, limit } = body;
+        const { query } = req;
+        const { q, skip, limit } = query;
         let params = {};
         if (q)
           params = {
@@ -40,8 +40,8 @@ export class NoteAPI {
             ],
           };
         const words = await Word.find(params)
-          .skip(skip * limit)
-          .limit(limit)
+          .skip((skip as unknown as number) * (limit as unknown as number))
+          .limit(limit as unknown as number)
           .sort({ rating: 'desc' })
           .exec();
         const totalWords = await Word.count(params).exec();

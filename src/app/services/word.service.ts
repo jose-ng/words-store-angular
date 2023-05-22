@@ -7,7 +7,7 @@ import { Params } from '../models/request.model';
 @Injectable({
   providedIn: 'root',
 })
-export class WordsService {
+export class WordService {
   constructor(private http: HttpClient) {}
 
   getWords(p: Params) {

@@ -3,20 +3,20 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { WordsService } from './word.service';
+import { WordService } from './word.service';
 import { environment } from 'src/environments/environment';
 import { generateManyWords } from '../models/word.mock';
 
 describe('WordsService', () => {
-  let service: WordsService;
+  let service: WordService;
   let httpController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [WordsService],
+      providers: [WordService],
     });
-    service = TestBed.inject(WordsService);
+    service = TestBed.inject(WordService);
     httpController = TestBed.inject(HttpTestingController);
   });
 
