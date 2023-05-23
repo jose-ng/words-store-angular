@@ -3,8 +3,10 @@ import { Observable } from 'rxjs';
 import { Note } from 'src/app/models/note.model';
 import { Params } from 'src/app/models/request.model';
 import { Word } from 'src/app/models/word.model';
+import { ModalService } from 'src/app/services/modal.service';
 import { NoteService } from 'src/app/services/note.service';
 import { WordService } from 'src/app/services/word.service';
+import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 
 @Component({
   selector: 'app-home',
@@ -21,11 +23,16 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private wordService: WordService,
-    private noteService: NoteService
+    private noteService: NoteService,
+    private modalService: ModalService
   ) {}
 
   ngOnInit(): void {
     this.loadInfo();
+  }
+
+  openModal() {
+    this.modalService.openModal(ModalComponent);
   }
 
   loadInfo() {
@@ -34,7 +41,7 @@ export class HomeComponent implements OnInit {
       | { words: Word[]; totalWords: number }
       | { notes: Note[]; totalNotes: number }
     >;
-    
+
     if (!this.showNotes) {
       serviceFunction = this.wordService.getWords(this.params);
     } else {
