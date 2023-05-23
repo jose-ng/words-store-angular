@@ -15,7 +15,6 @@ const DB_HOST = encodeURIComponent(process.env['DB_HOST'] ?? false);
 const MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`;
 
 const connectMongo = async () => {
-  console.log('USER', USER);
   /* check if we have connection to our databse*/
   if (connection.isConnected === mongoose.ConnectionStates.connected) {
     return;

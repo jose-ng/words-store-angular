@@ -13,8 +13,6 @@ export class ListItemsComponent implements OnChanges {
 
   @Input() showNotes = false;
   @Input() listItems: Word[] | Note[] = [];
-  @Input() totalShowedItems = 0;
-  @Input() totalItems = 0;
 
   ngOnChanges(): void {
     if (!this.showNotes) this.words = this.listItems as Word[];

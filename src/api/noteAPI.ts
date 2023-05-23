@@ -18,7 +18,6 @@ export class NoteAPI {
         const newNote = req.body;
         delete newNote.code;
         const note = await Note.create(newNote);
-
         res.status(201).json({ note });
       } catch (err) {
         res.status(400).json({ error: 'Internal server error' });
@@ -35,14 +34,14 @@ export class NoteAPI {
         if (q)
           params = {
             $or: [
-              { text_en: { $regex: q, $options: 'i' } },
-              { text_es: { $regex: q, $options: 'i' } },
+              { title: { $regex: q, $options: 'i' } },
+              { text: { $regex: q, $options: 'i' } },
             ],
           };
         const notes = await Note.find(params)
           .skip((skip as unknown as number) * (limit as unknown as number))
           .limit(limit as unknown as number)
-          .sort({ rating: 'desc' })
+          .sort({ title: 'asc' })
           .exec();
         const totalNotes = await Note.count(params).exec();
         res.status(200).json({ notes, totalNotes });

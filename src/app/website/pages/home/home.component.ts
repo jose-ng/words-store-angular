@@ -13,7 +13,6 @@ import { WordService } from 'src/app/services/word.service';
 })
 export class HomeComponent implements OnInit {
   listItems: Word[] | Note[] = [];
-
   totalItems = 0;
   showNotes = false;
   totalShowedItems = 0;
@@ -35,7 +34,7 @@ export class HomeComponent implements OnInit {
       | { words: Word[]; totalWords: number }
       | { notes: Note[]; totalNotes: number }
     >;
-
+    
     if (!this.showNotes) {
       serviceFunction = this.wordService.getWords(this.params);
     } else {
@@ -64,21 +63,21 @@ export class HomeComponent implements OnInit {
       this.listItems = !this.showNotes
         ? ([
             ...this.listItems,
-            ...(listItems.map((item) => {
+            ...listItems.map((item) => {
               return {
                 ...item,
                 hideAllText: true,
               };
-            })),
+            }),
           ] as Word[])
         : ([
             ...this.listItems,
-            ...(listItems.map((item) => {
+            ...listItems.map((item) => {
               return {
                 ...item,
                 hideAllText: true,
               };
-            })),
+            }),
           ] as Note[]);
 
       if (this.listItems.length > 0 && this.params.skip > 0) {
@@ -90,14 +89,12 @@ export class HomeComponent implements OnInit {
         this.totalShowedItems = listItems.length;
         this.totalItems = listItemsTotal;
       }
-
       this.loading = false;
     });
   }
 
   searchHandler(query: string) {
-    this.params.q = query;
-    this.loadInfo();
+    this.clearSeach(query);
   }
 
   showMore() {
@@ -105,8 +102,8 @@ export class HomeComponent implements OnInit {
     this.loadInfo();
   }
 
-  clearSeach() {
-    this.params = { q: '', skip: 0, limit: 20 };
+  clearSeach(q = '') {
+    this.params = { q: q, skip: 0, limit: 20 };
     this.listItems = [];
     this.totalItems = 0;
     this.totalShowedItems = 0;
@@ -114,7 +111,6 @@ export class HomeComponent implements OnInit {
   }
 
   changeShowNotes() {
-    this.showNotes = !this.showNotes;
-    this.clearSeach();
+    this.clearSeach(this.params.q);
   }
 }

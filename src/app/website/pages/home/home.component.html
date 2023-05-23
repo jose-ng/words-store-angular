@@ -4,15 +4,13 @@
 ></app-search>
 <div>
   Show notes
-  <input type="checkbox" [(ngModel)]="showNotes" (change)="clearSeach()" />
+  <input type="checkbox" [(ngModel)]="showNotes" (change)="changeShowNotes()" />
 </div>
 <app-list-items
   [listItems]="listItems"
-  [totalShowedItems]="totalShowedItems"
-  [totalItems]="totalItems"
   [showNotes]="showNotes"
 ></app-list-items>
-<ng-container *ngIf="listItems.length > 0">
+<div class="show-more" *ngIf="listItems.length > 0">
   <button
     class="button buton-outline"
     type="button"
@@ -21,4 +19,5 @@
   >
     Load More
   </button>
-</ng-container>
+  <div>Total: {{ totalShowedItems }} / {{ totalItems }}</div>
+</div>

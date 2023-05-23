@@ -1,5 +1,4 @@
 <section class="list-container">
-  <div>Total: {{ totalShowedItems }} / {{ totalItems }}</div>
   <ul *ngIf="!showNotes">
     <li
       [ngClass]="item.hideAllText ? 'item item--hide-all-text' : 'item '"
@@ -10,7 +9,8 @@
         <pre> {{ item.text_es }} </pre>
       </span>
       <span *ngIf="item.hideAllText">
-        <b>{{ item.text_en }}</b>: {{ item.text_es }}</span
+        <b>{{ item.text_en }}</b
+        >: {{ item.text_es }}</span
       >
       <button
         type="button"
@@ -31,7 +31,7 @@
         <pre> {{ item.text }} </pre>
       </span>
       <span *ngIf="item.hideAllText">
-        <b>{{ item.title }}:</b>: {{ item.text }}</span
+        <b>{{ item.title }}:</b> {{ item.text }}</span
       >
       <button
         type="button"
