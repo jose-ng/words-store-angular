@@ -1,28 +1,36 @@
-import { Injectable, ComponentFactoryResolver, ComponentRef } from '@angular/core';
+import { Injectable, ComponentRef, ViewContainerRef } from '@angular/core';
 import { ModalAnchorComponent } from '../shared/components/dynamic/modal-anchor/modal-anchor.component';
+import { ModalComponent } from '../shared/components/modal/modal.component';
 
 @Injectable()
 export class ModalService {
+  private rootViewContainer!: ViewContainerRef;
   private modalContainerRef: ComponentRef<ModalAnchorComponent> | null = null;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
-
-  openModal(component: any) {
+  openModal(viewContainerRef: any) {
+    this.rootViewContainer = viewContainerRef;
     if (!this.modalContainerRef) {
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ModalAnchorComponent);
-            this.modalContainerRef = componentFactory.create(this.modalContainerRef!.instance.viewContainerRef.injector);
+      this.modalContainerRef =
+        this.rootViewContainer.createComponent(ModalAnchorComponent);
       document.body.appendChild(this.modalContainerRef.location.nativeElement);
     }
 
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
-    const componentRef = componentFactory.create(this.modalContainerRef.injector);
-    this.modalContainerRef.instance.viewContainerRef.insert(componentRef.hostView);
+    const component =
+      this.modalContainerRef.instance.viewContainerRef.createComponent(
+        ModalComponent
+      );
+
+    this.modalContainerRef.instance.viewContainerRef.insert(component.hostView);
+  }
+
+  removeDynamicComponent(component: any) {
+    component.destroy();
   }
 
   closeModal() {
-    if (this.modalContainerRef) {
-      this.modalContainerRef.destroy();
-      this.modalContainerRef = null;
-    }
+    // if (this.modalContainerRef) {
+    //   this.modalContainerRef.destroy();
+    //   this.modalContainerRef = null;
+    // }
   }
 }

@@ -5,5 +5,5 @@ import { Component, ViewContainerRef } from '@angular/core';
   template: '<ng-container #modalContainer></ng-container>',
 })
 export class ModalAnchorComponent {
-  constructor(public viewContainerRef: ViewContainerRef) { }
+  constructor(public viewContainerRef: ViewContainerRef) {}
 }

@@ -24,7 +24,7 @@ import { ModalAnchorComponent } from './components/dynamic/modal-anchor/modal-an
     WordFormComponent,
     NoteFormComponent,
     ModalAnchorComponent,
-    ModalComponent,
+    
   ],
 })
 export class SharedModule {}
