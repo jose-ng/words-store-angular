@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ModalType } from 'src/app/models/modal.model';
 import { Note } from 'src/app/models/note.model';
 import { Params } from 'src/app/models/request.model';
 import { Word } from 'src/app/models/word.model';
@@ -23,7 +24,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private wordService: WordService,
     private noteService: NoteService,
-    private modalService: ModalService,
+    private modalService: ModalService
   ) {}
 
   ngOnInit(): void {
@@ -31,7 +32,11 @@ export class HomeComponent implements OnInit {
   }
 
   openModal() {
-    this.modalService.openModal();
+    this.modalService.openModal({
+      title: this.showNotes ? 'Add Note' : 'Add Word',
+      type: this.showNotes ? ModalType.Note : ModalType.Word,
+      confirmButton: true,
+    });
   }
 
   loadInfo() {
