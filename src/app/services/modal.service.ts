@@ -4,14 +4,17 @@ import { ModalComponent } from '../shared/components/modal/modal.component';
 
 @Injectable()
 export class ModalService {
-  private rootViewContainer!: ViewContainerRef;
   private modalContainerRef: ComponentRef<ModalAnchorComponent> | null = null;
+  private viewContainerRef!: ViewContainerRef;
 
-  openModal(viewContainerRef: any) {
-    this.rootViewContainer = viewContainerRef;
+  registerContainerRef(vcRef: ViewContainerRef) {
+    this.viewContainerRef = vcRef;
+  }
+
+  openModal() {
     if (!this.modalContainerRef) {
       this.modalContainerRef =
-        this.rootViewContainer.createComponent(ModalAnchorComponent);
+        this.viewContainerRef.createComponent(ModalAnchorComponent);
       document.body.appendChild(this.modalContainerRef.location.nativeElement);
     }
 
@@ -20,17 +23,15 @@ export class ModalService {
         ModalComponent
       );
 
-    this.modalContainerRef.instance.viewContainerRef.insert(component.hostView);
-  }
-
-  removeDynamicComponent(component: any) {
-    component.destroy();
+    this.modalContainerRef?.instance.viewContainerRef.insert(
+      component.hostView
+    );
   }
 
   closeModal() {
-    // if (this.modalContainerRef) {
-    //   this.modalContainerRef.destroy();
-    //   this.modalContainerRef = null;
-    // }
+    if (this.modalContainerRef) {
+      this.modalContainerRef.destroy();
+      this.modalContainerRef = null;
+    }
   }
 }

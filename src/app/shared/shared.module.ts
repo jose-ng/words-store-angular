@@ -7,6 +7,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { WordFormComponent } from './components/forms/word-form/word-form.component';
 import { NoteFormComponent } from './components/forms/note-form/note-form.component';
 import { ModalAnchorComponent } from './components/dynamic/modal-anchor/modal-anchor.component';
+import { ModalService } from '../services/modal.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { ModalAnchorComponent } from './components/dynamic/modal-anchor/modal-an
     WordFormComponent,
     NoteFormComponent,
     ModalAnchorComponent,
-    
   ],
+  providers: [ModalService],
 })
 export class SharedModule {}

@@ -24,7 +24,6 @@ export class HomeComponent implements OnInit {
     private wordService: WordService,
     private noteService: NoteService,
     private modalService: ModalService,
-    private viewContainerRef: ViewContainerRef
   ) {}
 
   ngOnInit(): void {
@@ -32,7 +31,7 @@ export class HomeComponent implements OnInit {
   }
 
   openModal() {
-    this.modalService.openModal(this.viewContainerRef);
+    this.modalService.openModal();
   }
 
   loadInfo() {
