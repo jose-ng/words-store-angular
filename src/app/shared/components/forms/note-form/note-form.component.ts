@@ -1,17 +1,19 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import ModalContentBase from 'src/app/models/form.base';
 
 @Component({
   selector: 'app-note-form',
   templateUrl: './note-form.component.html',
   styleUrls: ['./note-form.component.scss'],
 })
-export class NoteFormComponent {
+export class NoteFormComponent extends ModalContentBase {
   form!: FormGroup;
   submitted = false;
   sending = false;
 
   constructor(private formBuilder: FormBuilder) {
+    super();
     this.buildForm();
   }
 

@@ -1,17 +1,19 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import ModalContentBase from 'src/app/models/form.base';
 
 @Component({
   selector: 'app-word-form',
   templateUrl: './word-form.component.html',
   styleUrls: ['./word-form.component.scss'],
 })
-export class WordFormComponent {
+export class WordFormComponent extends ModalContentBase {
   form!: FormGroup;
   submitted = false;
   sending = false;
 
   constructor(private formBuilder: FormBuilder) {
+    super();
     this.buildForm();
   }
 

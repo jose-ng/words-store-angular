@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
 import { Observable } from 'rxjs';
+import ModalBase from 'src/app/models/form.base';
 import { ModalType } from 'src/app/models/modal.model';
 import { Note } from 'src/app/models/note.model';
 import { Params } from 'src/app/models/request.model';
@@ -34,7 +35,9 @@ export class HomeComponent implements OnInit {
   }
 
   openModal() {
-    this.modalService.openModal(NoteFormComponent,
+    const component = (this.showNotes ? NoteFormComponent : WordFormComponent) as  Type<ModalBase>;
+    this.modalService.openModal(
+      component,
       {
         title: this.showNotes ? 'Add Note' : 'Add Word',
         type: this.showNotes ? ModalType.Note : ModalType.Word,
