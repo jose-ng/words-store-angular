@@ -8,7 +8,7 @@ import { ModalService } from 'src/app/services/modal.service';
 export class ModalAnchorComponent implements OnInit {
   @ViewChild('modalContainer', { static: true, read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
-  
+
   constructor(private modalService: ModalService) {}
 
   ngOnInit() {

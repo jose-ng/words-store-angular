@@ -7,6 +7,7 @@ import { Word } from 'src/app/models/word.model';
 import { ModalService } from 'src/app/services/modal.service';
 import { NoteService } from 'src/app/services/note.service';
 import { WordService } from 'src/app/services/word.service';
+import { NoteFormComponent } from 'src/app/shared/components/forms/note-form/note-form.component';
 import { WordFormComponent } from 'src/app/shared/components/forms/word-form/word-form.component';
 
 @Component({
@@ -33,11 +34,13 @@ export class HomeComponent implements OnInit {
   }
 
   openModal() {
-    this.modalService.openModal(WordFormComponent, {
-      title: this.showNotes ? 'Add Note' : 'Add Word',
-      type: this.showNotes ? ModalType.Note : ModalType.Word,
-      confirmButton: true,
-    });
+    this.modalService.openModal(NoteFormComponent,
+      {
+        title: this.showNotes ? 'Add Note' : 'Add Word',
+        type: this.showNotes ? ModalType.Note : ModalType.Word,
+        confirmButton: true,
+      }
+    );
   }
 
   loadInfo() {

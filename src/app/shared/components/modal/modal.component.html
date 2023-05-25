@@ -7,8 +7,9 @@
     >
       <span class="material-icons">close</span>
     </button>
-    {{hola}}
-    <h4 class="modal__title">{{ hola ? true : false }}</h4>
+
+    <h4 class="modal__title">{{ title }}</h4>
+    <ng-container #modal></ng-container>
     <!-- <app-word-form *ngIf="type === ModalType.Word"></app-word-form>
     <app-note-form *ngIf="type === ModalType.Note"></app-note-form> -->
   </div>
