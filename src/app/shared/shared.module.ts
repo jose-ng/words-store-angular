@@ -25,6 +25,7 @@ import { ModalService } from '../services/modal.service';
     WordFormComponent,
     NoteFormComponent,
     ModalAnchorComponent,
+    ModalComponent,
   ],
   providers: [ModalService],
 })
