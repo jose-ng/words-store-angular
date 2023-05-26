@@ -1,0 +1,17 @@
+<div class="search-container">
+  <input
+    #searchCtrl
+    type="text"
+    [(ngModel)]="searchQuery"
+    placeholder="Search for..."
+    (input)="searchInput()"
+  />
+  <button
+    *ngIf="searchQuery"
+    type="button"
+    class="button button-clear"
+    (click)="clearInput()"
+  >
+    <span class="material-icons">close</span>
+  </button>
+</div>

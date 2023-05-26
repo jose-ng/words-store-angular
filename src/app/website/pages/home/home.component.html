@@ -1,1 +1,44 @@
-<p>home works!</p>
+<app-search
+  (search)="searchHandler($event)"
+  (clear)="clearSeach()"
+></app-search>
+<div class="row-new-item">
+  <label for="showNotesId"
+    >Show notes
+    <input
+      id="showNotesId"
+      type="checkbox"
+      [(ngModel)]="showNotes"
+      (change)="changeShowNotes()"
+  /></label>
+  <button
+    class="button buton-outline"
+    type="button"
+    (click)="openModal()"
+    [disabled]=""
+  >
+    {{ !showNotes ? "Add New Word" : "Add New Note" }}
+  </button>
+</div>
+<app-list-items
+  [listItems]="listItems"
+  [showNotes]="showNotes"
+></app-list-items>
+<div class="show-more" *ngIf="listItems.length > 0">
+  <button
+    class="button buton-outline"
+    type="button"
+    (click)="showMore()"
+    [disabled]="loading || listItems.length >= totalItems"
+  >
+    Load More
+  </button>
+  <div>Total: {{ totalShowedItems }} / {{ totalItems }}</div>
+</div>
+
+<!-- <app-modal *ngIf="showNotes">
+  <app-note-form></app-note-form>
+</app-modal>
+<app-modal *ngIf="!showNotes">
+  <app-word-form></app-word-form>
+</app-modal> -->

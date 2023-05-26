@@ -1,0 +1,17 @@
+@import "../../../../styles";
+
+.layout {
+  width: 100%;
+  padding: 10px;
+  // Media Queries (Mobile first approach)
+  @media (min-width: ($medium+1)) {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  // Media Queries (Mobile first approach)
+  @media (min-width: ($x-large+1)) {
+    max-width: $x-large;
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,46 @@
+<section class="list-container">
+  <ul *ngIf="!showNotes">
+    <li
+      [ngClass]="item.hideAllText ? 'item item--hide-all-text' : 'item '"
+      *ngFor="let item of words"
+    >
+      <span *ngIf="!item.hideAllText">
+        <b>{{ item.text_en }}:</b>
+        <pre> {{ item.text_es }} </pre>
+      </span>
+      <span *ngIf="item.hideAllText">
+        <b>{{ item.text_en }}</b
+        >: {{ item.text_es }}</span
+      >
+      <button
+        type="button"
+        class="button button-clear button-eye"
+        (click)="showDetailItem(item, !item.hideAllText)"
+      >
+        <span class="material-icons"> remove_red_eye </span>
+      </button>
+    </li>
+  </ul>
+  <ul *ngIf="showNotes">
+    <li
+      [ngClass]="item.hideAllText ? 'item item--hide-all-text' : 'item '"
+      *ngFor="let item of notes"
+    >
+      <span *ngIf="!item.hideAllText">
+        <b>{{ item.title }}:</b>
+        <pre> {{ item.text }} </pre>
+      </span>
+      <span *ngIf="item.hideAllText">
+        <b>{{ item.title }}</b
+        >: {{ item.text }}</span
+      >
+      <button
+        type="button"
+        class="button button-clear button-eye"
+        (click)="showDetailItem(item, !item.hideAllText)"
+      >
+        <span class="material-icons"> remove_red_eye </span>
+      </button>
+    </li>
+  </ul>
+</section>

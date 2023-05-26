@@ -1,1 +1,62 @@
 /* You can add global styles to this file, and also import other style files */
+@import "material-icons/iconfont/material-icons.css";
+// Colors
+$primaryColor: #005edc;
+$grayColor: #626366;
+$accentColor: #febd11;
+// Sizes
+$medium: 640px;
+$x-large: 1200px;
+
+li {
+  margin-bottom: 0;
+}
+
+input,
+textarea,
+select {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+p {
+  margin-bottom: 0.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    color: rgb(194, 194, 194);
+    background: black;
+  }
+}
+
+form {
+  margin-bottom: 0;
+  button {
+    margin-top: 1rem;
+  }
+}
+
+button.button-clear {
+  padding: 0;
+  height: auto;
+  margin: 0;
+  line-height: 0;
+}
+
+input.input, textarea.input {
+  &--error {
+    border-color: #e57373;
+  }
+  &--success {
+    border-color: #4caf50;
+  }
+}
+
+.text {
+  &--error {
+    color: #e57373;
+  }
+}

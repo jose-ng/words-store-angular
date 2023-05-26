@@ -1,0 +1,66 @@
+<app-modal
+  [title]="modalTitle"
+  [type]="modalType"
+>
+  <form [formGroup]="form" (ngSubmit)="save($event)">
+    <div>
+      <label for="title">Note Title</label>
+      <input
+        id="title"
+        [ngClass]="{
+          'input input--success': submitted && title?.valid,
+          'input input--error': submitted && title?.invalid
+        }"
+        type="text"
+        formControlName="title"
+        placeholder="Note Title"
+      />
+      <p class="text text--error" *ngIf="submitted && title?.invalid">
+        This field is invalid.
+      </p>
+    </div>
+    <div>
+      <label for="text">Note</label>
+      <textarea
+        id="text"
+        [ngClass]="{
+          'input input--success': submitted && text?.valid,
+          'input input--error': submitted && text?.invalid
+        }"
+        rows="10"
+        formControlName="text"
+        placeholder="Describe..."
+      ></textarea>
+      <p class="text text--error" *ngIf="submitted && text?.invalid">
+        This field is invalid.
+      </p>
+    </div>
+    <div>
+      <label for="code">Code</label>
+      <input
+        id="code"
+        [ngClass]="{
+          'input input--success': submitted && code?.valid,
+          'input input--error': submitted && code?.invalid
+        }"
+        type="text"
+        formControlName="code"
+        placeholder="Code"
+      />
+      <p class="text text--error" *ngIf="submitted && code?.invalid">
+        This field is invalid.
+      </p>
+    </div>
+    <div class="buttons">
+      <button
+        class="button button-outline"
+        [disabled]="sending"
+        type="button"
+        (click)="cancel()"
+      >
+        Cancel
+      </button>
+      <button [disabled]="sending" type="submit">Save</button>
+    </div>
+  </form>
+</app-modal>

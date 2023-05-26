@@ -1,0 +1,66 @@
+<app-modal
+  [title]="modalTitle"
+  [type]="modalType"
+>
+  <form [formGroup]="form" (ngSubmit)="save($event)">
+    <div>
+      <label for="text_es">Spanish Word</label>
+      <input
+        id="text_es"
+        [ngClass]="{
+          'input input--success': submitted && text_es?.valid,
+          'input input--error': submitted && text_es?.invalid
+        }"
+        type="text"
+        formControlName="text_es"
+        placeholder="Spanish Word"
+      />
+      <p class="text text--error" *ngIf="submitted && text_es?.invalid">
+        This field is invalid.
+      </p>
+    </div>
+    <div>
+      <label for="text_en">English Word</label>
+      <input
+        id="text_en"
+        [ngClass]="{
+          'input input--success': submitted && text_en?.valid,
+          'input input--error': submitted && text_en?.invalid
+        }"
+        type="text"
+        formControlName="text_en"
+        placeholder="English Word"
+      />
+      <p class="text text--error" *ngIf="submitted && text_en?.invalid">
+        This field is invalid.
+      </p>
+    </div>
+    <div>
+      <label for="code">Code</label>
+      <input
+        id="code"
+        [ngClass]="{
+          'input input--success': submitted && code?.valid,
+          'input input--error': submitted && code?.invalid
+        }"
+        type="text"
+        formControlName="code"
+        placeholder="Code"
+      />
+      <p class="text text--error" *ngIf="submitted && code?.invalid">
+        This field is invalid.
+      </p>
+    </div>
+    <div class="buttons">
+      <button
+        class="button button-outline"
+        [disabled]="sending"
+        type="button"
+        (click)="cancel()"
+      >
+        Cancel
+      </button>
+      <button [disabled]="sending" type="submit">Save</button>
+    </div>
+  </form>
+</app-modal>
