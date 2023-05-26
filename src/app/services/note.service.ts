@@ -17,7 +17,15 @@ export class NoteService {
       { params }
     );
   }
+
   create(dto: CreateNoteDTO) {
     return this.http.post<Note>(`${environment.API_URL}/note`, dto);
+  }
+
+  updateRating(dto: { id: string; rating: number }) {
+    return this.http.post<Note>(
+      `${environment.API_URL}/note/updateRating`,
+      dto
+    );
   }
 }

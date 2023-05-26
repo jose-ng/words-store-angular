@@ -126,4 +126,19 @@ export class HomeComponent {
   changeShowNotes() {
     this.clearSeach(this.params.q);
   }
+
+  updateNotesHandler(dto: { id: string; isNote: boolean; rating: number }) {
+    this.loading = true;
+    let serviceFunction: Observable<Word | Note>;
+    const { id, isNote, rating } = dto;
+    if (!isNote) {
+      serviceFunction = this.wordService.updateRating({ id, rating });
+    } else {
+      serviceFunction = this.noteService.updateRating({ id, rating });
+    }
+    serviceFunction.subscribe((dataRaw: unknown) => {
+      const data = dataRaw as Word | Note;
+      console.log(data)
+    });
+  }
 }

@@ -51,6 +51,29 @@ export class WordAPI {
       }
     });
 
+    app
+      .route('/api/word/updateRating')
+      .post(async (req: Request, res: Response) => {
+        try {
+          if (!allowCreate(req.body.code)) {
+            res.status(403).json({ error: 'forbbiden' });
+            return;
+          }
+
+          await connectMongo();
+          const word = await Word.findById(req.body.id).exec();
+          const updated = await Word.findOneAndUpdate(
+            { _id: req.body.id },
+            { rating: (word.rating || 0) + req.body.rating },
+            { new: true }
+          ).exec();
+
+          res.status(200).json(updated);
+        } catch (err) {
+          res.status(400).json({ error: 'Internal server error' });
+        }
+      });
+
     // // Get Single Word
     // app
     //   .route('/api/word/:id')
