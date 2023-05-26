@@ -20,4 +20,11 @@ export class WordService {
   create(dto: CreateWordDTO) {
     return this.http.post<Word>(`${environment.API_URL}/word`, dto);
   }
+
+  updateRating(dto: { id: string; rating: number }) {
+    return this.http.post<Word>(
+      `${environment.API_URL}/word/updateRating`,
+      dto
+    );
+  }
 }

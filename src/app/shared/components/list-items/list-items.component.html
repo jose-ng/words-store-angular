@@ -4,9 +4,25 @@
       [ngClass]="item.hideAllText ? 'item item--hide-all-text' : 'item '"
       *ngFor="let item of words"
     >
+      <span class="ranting" *ngIf="item.hideAllText">
+        <button
+          class="button button-outline"
+          type="button"
+          (click)="updateRatingInput(item, 1, false)"
+        >
+          <span class="material-icons">keyboard_arrow_up</span>
+        </button>
+        <button
+          class="button button-outline"
+          type="button"
+          (click)="updateRatingInput(item, -1, false)"
+        >
+          <span class="material-icons">keyboard_arrow_down</span>
+        </button>
+      </span>
       <span *ngIf="!item.hideAllText">
         <b>{{ item.text_en }}:</b>
-        <pre> {{ item.text_es }} </pre>
+        <pre> <div>{{ item.text_es }}</div><div>rating: {{item.rating}}</div> </pre>
       </span>
       <span *ngIf="item.hideAllText">
         <b>{{ item.text_en }}</b
@@ -26,9 +42,26 @@
       [ngClass]="item.hideAllText ? 'item item--hide-all-text' : 'item '"
       *ngFor="let item of notes"
     >
+      <!-- Todo: implement this then -->
+      <!-- <span
+        class="ranting"
+        *ngIf="item.hideAllText"
+        (click)="updateRatingInput(item, 1, true)"
+      >
+        <button class="button button-outline" type="button">
+          <span class="material-icons">keyboard_arrow_up</span>
+        </button>
+        <button
+          class="button button-outline"
+          type="button"
+          (click)="updateRatingInput(item, -1, true)"
+        >
+          <span class="material-icons">keyboard_arrow_down</span>
+        </button>
+      </span> -->
       <span *ngIf="!item.hideAllText">
         <b>{{ item.title }}:</b>
-        <pre> {{ item.text }} </pre>
+        <pre> {{ item.text }} <br *ngIf="item.urlImg"> <img *ngIf="item.urlImg" [src]="item.urlImg" > </pre>
       </span>
       <span *ngIf="item.hideAllText">
         <b>{{ item.title }}</b
