@@ -7,6 +7,7 @@ import {
 import { ModalComponent } from '../shared/components/modal/modal.component';
 import { ModalOptions } from '../models/modal.model';
 import ModalContentBaseComponent from '../models/modal.content.base';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class ModalService {
@@ -14,7 +15,7 @@ export class ModalService {
     null;
   private modalComponentRef: ComponentRef<ModalComponent> | null = null;
   private viewContainerRef!: ViewContainerRef;
-  callback?: () => void;
+  public dataReceived: BehaviorSubject<void> = new BehaviorSubject<void>(undefined);
 
   registerContainerRef(vcRef: ViewContainerRef) {
     this.viewContainerRef = vcRef;

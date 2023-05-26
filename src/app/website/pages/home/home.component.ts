@@ -1,7 +1,6 @@
-import { Component, OnInit, Type } from '@angular/core';
+import { Component, Type } from '@angular/core';
 import { Observable } from 'rxjs';
 import ModalContentBaseComponent from 'src/app/models/modal.content.base';
-import { ModalType } from 'src/app/models/modal.model';
 import { Note } from 'src/app/models/note.model';
 import { Params } from 'src/app/models/request.model';
 import { Word } from 'src/app/models/word.model';
@@ -16,7 +15,7 @@ import { WordFormComponent } from 'src/app/shared/components/forms/word-form/wor
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   listItems: Word[] | Note[] = [];
   totalItems = 0;
   showNotes = false;
@@ -28,10 +27,11 @@ export class HomeComponent implements OnInit {
     private wordService: WordService,
     private noteService: NoteService,
     private modalService: ModalService
-  ) {}
-
-  ngOnInit(): void {
-    this.loadInfo();
+  ) {
+    this.modalService.dataReceived.subscribe(() => {
+      console.log(1);
+      this.clearSeach();
+    });
   }
 
   openModal() {

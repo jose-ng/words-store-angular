@@ -49,6 +49,7 @@ export class WordFormComponent extends ModalContentBase {
 
       this.sending = false;
       this.submitted = false;
+      this.modalService.dataReceived.next();
       this.cancel();
     } else {
       this.form.markAllAsTouched();
