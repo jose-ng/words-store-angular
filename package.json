@@ -11,7 +11,8 @@
     "dev:ssr": "ng run words-store:serve-ssr",
     "serve:ssr": "node dist/words-store/server/main.js",
     "build:ssr": "ng build && ng run words-store:server",
-    "prerender": "ng run words-store:prerender"
+    "prerender": "ng run words-store:prerender",
+    "vercel-build": "npm run build:ssr"
   },
   "private": true,
   "dependencies": {
