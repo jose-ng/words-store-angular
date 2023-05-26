@@ -1,9 +1,12 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input } from '@angular/core';
+import { ModalService } from '../services/modal.service';
 
 @Component({
   selector: 'app-modal-base',
-  template:''
+  template: '',
 })
 export default class ModalContentBaseComponent {
-  @Input() closeModal!: () => void;
+  closeModal(modalService: ModalService) {
+    modalService.closeModal();
+  }
 }

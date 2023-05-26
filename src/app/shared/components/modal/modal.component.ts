@@ -16,30 +16,15 @@ import { ModalService } from 'src/app/services/modal.service';
   styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent {
-  @ViewChild('modal', { static: true, read: ViewContainerRef })
-  viewContainerRef!: ViewContainerRef;
   ModalType = ModalType;
   @Input() title!: string;
-  @Input() message!: string;
+  @Input() message?: string;
   @Input() type!: ModalType;
-  @Input() confirmButton?: boolean;
+  @Input() confirmButton = false;
 
-  constructor(
-    private modalService: ModalService,
-    private cdr: ChangeDetectorRef
-  ) {}
-
-  reload() {
-    this.cdr.detectChanges();
-  }
+  constructor(private modalService: ModalService) {}
 
   closeModal() {
-    this.viewContainerRef.clear();
     this.modalService.closeModal();
-  }
-
-  addComponent<T extends ModalContentBaseComponent>(component: Type<T>, callback: () => void) {
-    const componentRef = this.viewContainerRef.createComponent(component);
-    componentRef.instance.closeModal = callback;
   }
 }

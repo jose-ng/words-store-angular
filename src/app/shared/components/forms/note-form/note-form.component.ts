@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ModalContentBase from 'src/app/models/modal.content.base';
+import { ModalType } from 'src/app/models/modal.model';
 import { CreateNoteDTO } from 'src/app/models/note.model';
+import { ModalService } from 'src/app/services/modal.service';
 import { NoteService } from 'src/app/services/note.service';
 
 @Component({
@@ -13,10 +15,14 @@ export class NoteFormComponent extends ModalContentBase {
   form!: FormGroup;
   submitted = false;
   sending = false;
+  modalType = ModalType.Note;
+  modalTitle = 'Add Note';
+  confirmButton = true;
 
   constructor(
     private formBuilder: FormBuilder,
-    private noteService: NoteService
+    private noteService: NoteService,
+    private modalService: ModalService
   ) {
     super();
     this.buildForm();
@@ -42,10 +48,14 @@ export class NoteFormComponent extends ModalContentBase {
 
       this.sending = false;
       this.submitted = false;
-      super.closeModal();
+      this.cancel();
     } else {
       this.form.markAllAsTouched();
     }
+  }
+
+  cancel() {
+    super.closeModal(this.modalService);
   }
 
   get title() {
