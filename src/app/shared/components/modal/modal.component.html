@@ -3,11 +3,20 @@
     <button
       type="button"
       (click)="closeModal()"
-      class="button button-clear modal__button--close"
+      class="button button-clear modal__button--close-top"
     >
       <span class="material-icons">close</span>
     </button>
     <h4 class="modal__title">{{ title }}</h4>
     <ng-container #modal></ng-container>
+    <div class="button-close" *ngIf="!confirmButton">
+      <button
+        type="button"
+        (click)="closeModal()"
+        [ngClass]="confirmButton ? 'button button-outline' : 'button'"
+      >
+        close
+      </button>
+    </div>
   </div>
 </section>

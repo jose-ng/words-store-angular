@@ -26,11 +26,14 @@
   }
 
   &__button {
-    &--close {
+    &--close-top {
       position: absolute;
       top: 0;
       right: 0;
     }
+  }
+  .button-close {
+    text-align: end;
   }
 }
 
@@ -38,9 +41,6 @@
   .modal {
     &__container {
       max-width: 800px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
   }
 }

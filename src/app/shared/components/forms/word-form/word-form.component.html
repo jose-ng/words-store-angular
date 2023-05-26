@@ -47,5 +47,15 @@
       This field is invalid.
     </p>
   </div>
-  <button [disabled]="sending" type="submit">Save</button>
+  <div class="buttons">
+    <button
+      class="button button-outline"
+      [disabled]="sending"
+      type="button"
+      (click)="closeModal()"
+    >
+      Cancel
+    </button>
+    <button [disabled]="sending" type="submit">Save</button>
+  </div>
 </form>

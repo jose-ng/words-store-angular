@@ -6,6 +6,7 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
+import ModalContentBaseComponent from 'src/app/models/modal.content.base';
 import { ModalType } from 'src/app/models/modal.model';
 import { ModalService } from 'src/app/services/modal.service';
 
@@ -22,7 +23,7 @@ export class ModalComponent {
   @Input() title!: string;
   @Input() message!: string;
   @Input() type!: ModalType;
-  @Input() confirmButton = false;
+  @Input() confirmButton?: boolean;
 
   constructor(
     private modalService: ModalService,
@@ -37,7 +38,8 @@ export class ModalComponent {
     this.modalService.closeModal();
   }
 
-  addComponent<T>(component: Type<T>) {
-    this.viewContainerRef.createComponent(component);
+  addComponent<T extends ModalContentBaseComponent>(component: Type<T>, callback: () => void) {
+    const componentRef = this.viewContainerRef.createComponent(component);
+    componentRef.instance.closeModal = callback;
   }
 }

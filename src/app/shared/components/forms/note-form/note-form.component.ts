@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import ModalContentBase from 'src/app/models/form.base';
+import ModalContentBase from 'src/app/models/modal.content.base';
 
 @Component({
   selector: 'app-note-form',
