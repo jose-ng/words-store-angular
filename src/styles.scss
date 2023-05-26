@@ -46,7 +46,7 @@ button.button-clear {
   line-height: 0;
 }
 
-input.input {
+input.input, textarea.input {
   &--error {
     border-color: #e57373;
   }

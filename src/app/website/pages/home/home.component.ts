@@ -38,11 +38,15 @@ export class HomeComponent implements OnInit {
     const component = (
       this.showNotes ? NoteFormComponent : WordFormComponent
     ) as Type<ModalContentBaseComponent>;
-    this.modalService.openModal(component, {
-      title: this.showNotes ? 'Add Note' : 'Add Word',
-      type: this.showNotes ? ModalType.Note : ModalType.Word,
-      confirmButton: true,
-    });
+    this.modalService.openModal(
+      component,
+      {
+        title: this.showNotes ? 'Add Note' : 'Add Word',
+        type: this.showNotes ? ModalType.Note : ModalType.Word,
+        confirmButton: true,
+      },
+      this.loadInfo.bind(this)
+    );
   }
 
   loadInfo() {

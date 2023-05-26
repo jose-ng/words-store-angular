@@ -18,7 +18,7 @@ export class NoteAPI {
         const newNote = req.body;
         delete newNote.code;
         const note = await Note.create(newNote);
-        res.status(201).json({ note });
+        res.status(201).json(note);
       } catch (err) {
         res.status(400).json({ error: 'Internal server error' });
       }

@@ -19,7 +19,7 @@ export class WordAPI {
         delete newWord.code;
         const word = await Word.create(newWord);
 
-        res.status(201).json({ word });
+        res.status(201).json(word);
       } catch (err) {
         res.status(400).json({ error: 'Internal server error' });
       }

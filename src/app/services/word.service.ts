@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Word } from '../models/word.model';
+import { CreateWordDTO, Word } from '../models/word.model';
 import { Params } from '../models/request.model';
 
 @Injectable({
@@ -16,5 +16,8 @@ export class WordService {
       `${environment.API_URL}/word`,
       { params }
     );
+  }
+  create(dto: CreateWordDTO) {
+    return this.http.post<Word>(`${environment.API_URL}/word`, dto);
   }
 }

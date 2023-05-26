@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ModalContentBase from 'src/app/models/modal.content.base';
+import { CreateWordDTO } from 'src/app/models/word.model';
+import { WordService } from 'src/app/services/word.service';
 
 @Component({
   selector: 'app-word-form',
@@ -12,7 +14,7 @@ export class WordFormComponent extends ModalContentBase {
   submitted = false;
   sending = false;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private wordService: WordService) {
     super();
     this.buildForm();
   }
@@ -30,8 +32,15 @@ export class WordFormComponent extends ModalContentBase {
     this.submitted = true;
     if (this.form.valid) {
       this.sending = true;
+
+      const product: CreateWordDTO = this.form.value;
+      this.wordService.create(product).subscribe((data) => {
+        console.log(data);
+      });
+
       this.sending = false;
       this.submitted = false;
+      super.closeModal();
     } else {
       this.form.markAllAsTouched();
     }

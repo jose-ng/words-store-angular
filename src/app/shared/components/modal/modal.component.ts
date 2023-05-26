@@ -16,7 +16,6 @@ import { ModalService } from 'src/app/services/modal.service';
   styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent {
-
   @ViewChild('modal', { static: true, read: ViewContainerRef })
   viewContainerRef!: ViewContainerRef;
   ModalType = ModalType;
@@ -35,6 +34,7 @@ export class ModalComponent {
   }
 
   closeModal() {
+    this.viewContainerRef.clear();
     this.modalService.closeModal();
   }
 

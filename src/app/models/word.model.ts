@@ -5,3 +5,8 @@ export interface Word {
   rating: number;
   hideAllText: boolean;
 }
+
+export interface CreateWordDTO
+  extends Omit<Word, 'id' | 'hideAllText' | 'rating'> {
+  code: number;
+}

@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Params } from '../models/request.model';
-import { Note } from '../models/note.model';
+import { CreateNoteDTO, Note } from '../models/note.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -16,5 +16,8 @@ export class NoteService {
       `${environment.API_URL}/note`,
       { params }
     );
+  }
+  create(dto: CreateNoteDTO) {
+    return this.http.post<Note>(`${environment.API_URL}/note`, dto);
   }
 }
