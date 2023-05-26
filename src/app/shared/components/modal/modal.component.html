@@ -8,12 +8,13 @@
       <span class="material-icons">close</span>
     </button>
     <h4 class="modal__title">{{ title }}</h4>
-    <ng-content></ng-content>
-    <div class="button-close" *ngIf="!confirmButton">
+    <ng-content *ngIf="hasChildComponent"></ng-content>
+    <p *ngIf="!hasChildComponent">{{ message }}</p>
+    <div class="button-close" *ngIf="!hasChildComponent">
       <button
         type="button"
         (click)="closeModal()"
-        [ngClass]="confirmButton ? 'button button-outline' : 'button'"
+        [ngClass]="hasChildComponent ? 'button button-outline' : 'button'"
       >
         close
       </button>

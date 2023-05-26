@@ -1,10 +1,11 @@
 export enum ModalType {
   Word = 0,
   Note,
+  Basic
 }
 export interface ModalOptions {
   title: string;
-  description?: string;
-  confirmButton?: boolean;
+  message?: string;
+  hasChildComponent: boolean;
   type: ModalType;
 }

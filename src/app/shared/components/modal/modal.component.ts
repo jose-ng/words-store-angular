@@ -20,7 +20,7 @@ export class ModalComponent {
   @Input() title!: string;
   @Input() message?: string;
   @Input() type!: ModalType;
-  @Input() confirmButton = false;
+  @Input() hasChildComponent = true;
 
   constructor(private modalService: ModalService) {}
 
