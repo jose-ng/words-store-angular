@@ -6,6 +6,30 @@ import * as express from 'express';
 
 export class NoteAPI {
   api(app: express.Express): void {
+    // Update Rating
+    app
+      .route('/api/note/updateRating')
+      .post(async (req: Request, res: Response) => {
+        try {
+          if (!allowCreate(req.body.code)) {
+            res.status(403).json({ error: 'forbbiden' });
+            return;
+          }
+
+          await connectMongo();
+          const note = await Note.findById(req.body.id).exec();
+          const updated = await Note.findOneAndUpdate(
+            { _id: req.body.id },
+            { rating: (note.rating || 0) + req.body.rating },
+            { new: true }
+          ).exec();
+
+          res.status(200).json(updated);
+        } catch (err) {
+          res.status(400).json({ error: 'Internal server error' });
+        }
+      });
+
     // Create Note
     app.route('/api/note').post(async (req: Request, res: Response) => {
       try {
@@ -49,29 +73,6 @@ export class NoteAPI {
         res.status(400).json({ error: 'Internal server error' });
       }
     });
-
-    app
-      .route('/api/note/updateRating')
-      .post(async (req: Request, res: Response) => {
-        try {
-          if (!allowCreate(req.body.code)) {
-            res.status(403).json({ error: 'forbbiden' });
-            return;
-          }
-
-          await connectMongo();
-          const note = await Note.findById(req.body.id).exec();
-          const updated = await Note.findOneAndUpdate(
-            { _id: req.body.id },
-            { rating: (note.rating || 0) + req.body.rating },
-            { new: true }
-          ).exec();
-
-          res.status(200).json(updated);
-        } catch (err) {
-          res.status(400).json({ error: 'Internal server error' });
-        }
-      });
 
     // // Get Single Word
     // app
