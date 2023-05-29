@@ -29,7 +29,6 @@ export class HomeComponent {
     private modalService: ModalService
   ) {
     this.modalService.dataReceived.subscribe(() => {
-      console.log(1);
       this.clearSeach();
     });
   }

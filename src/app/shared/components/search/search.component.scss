@@ -1,6 +1,8 @@
+@import "../../../../styles.scss";
+
 .search-container {
   position: relative;
-  display: inline-block;
+  display: block;
   input {
     padding-right: 3rem;
   }
@@ -18,4 +20,14 @@
     margin: 0;
     padding: 0;
   }
+
+  @media (min-width: $medium) {
+    display: inline-block;
+  }
 }
+
+
+
+
+
+
