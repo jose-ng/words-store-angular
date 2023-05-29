@@ -7,8 +7,8 @@ import { existsSync } from 'fs';
 import { join } from 'path';
 
 import { AppServerModule } from './src/main.server';
-import { WordAPI } from 'src/api/wordAPI';
-import { NoteAPI } from 'src/api/noteAPI';
+import { WordAPI } from './api/wordAPI';
+import { NoteAPI } from './api/noteAPI';
 
 dotenv.config();
 const wordAPI: WordAPI = new WordAPI();
