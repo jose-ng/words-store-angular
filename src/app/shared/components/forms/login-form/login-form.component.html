@@ -1,0 +1,53 @@
+<form [formGroup]="form" (ngSubmit)="save($event)">
+  <div>
+    <label for="email">Email</label>
+    <input
+      id="email"
+      [ngClass]="{
+        'input input--success': submitted && email?.valid,
+        'input input--error': submitted && email?.invalid
+      }"
+      type="text"
+      formControlName="email"
+      placeholder="Email"
+    />
+    <p class="text text--error" *ngIf="submitted && email?.invalid">
+      This field is invalid.
+    </p>
+  </div>
+  <div>
+    <label for="password">Password</label>
+    <input
+      id="password"
+      [ngClass]="{
+        'input input--success': submitted && password?.valid,
+        'input input--error': submitted && password?.invalid
+      }"
+      type="password"
+      formControlName="password"
+      placeholder="Password"
+    >
+    <p class="text text--error" *ngIf="submitted && password?.invalid">
+      This field is invalid.
+    </p>
+  </div>
+  <div>
+    <label for="confirmPassword">Confirm Password</label>
+    <input
+      id="confirmPassword"
+      [ngClass]="{
+        'input input--success': submitted && confirmPassword?.valid,
+        'input input--error': submitted && confirmPassword?.invalid
+      }"
+      type="password"
+      formControlName="confirmPassword"
+      placeholder="confirmPassword"
+    >
+    <p class="text text--error" *ngIf="submitted && confirmPassword?.invalid">
+      This field is invalid.
+    </p>
+  </div>
+  <div class="buttons">
+    <button [disabled]="sending" type="submit">Save</button>
+  </div>
+</form>
