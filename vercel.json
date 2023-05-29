@@ -1,11 +1,11 @@
 {
   "version": 2,
   "public": true,
-  "name": "test-universal",
+  "name": "words-store",
   "rewrites": [{ "source": "/(.*)", "destination": "/api" }],
   "functions": {
     "api/index.js": {
-      "includeFiles": "dist/YOUR_PROJECT_NAME/browser/**"
+      "includeFiles": "dist/words-store/browser/**"
     }
   }
 }
