@@ -9,6 +9,7 @@ import { NoteFormComponent } from './components/forms/note-form/note-form.compon
 import { ModalAnchorComponent } from './components/dynamic/modal-anchor/modal-anchor.component';
 import { ModalService } from '../services/modal.service';
 import { LoginFormComponent } from './components/forms/login-form/login-form.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { LoginFormComponent } from './components/forms/login-form/login-form.com
     ModalAnchorComponent,
     ModalComponent,
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
   exports: [
     SearchComponent,
     ListItemsComponent,
@@ -28,7 +29,7 @@ import { LoginFormComponent } from './components/forms/login-form/login-form.com
     NoteFormComponent,
     ModalAnchorComponent,
     ModalComponent,
-    LoginFormComponent
+    LoginFormComponent,
   ],
   providers: [ModalService],
 })

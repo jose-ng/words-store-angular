@@ -26,12 +26,12 @@
       type="password"
       formControlName="password"
       placeholder="Password"
-    >
+    />
     <p class="text text--error" *ngIf="submitted && password?.invalid">
       This field is invalid.
     </p>
   </div>
-  <div>
+  <div *ngIf="!_isLogin">
     <label for="confirmPassword">Confirm Password</label>
     <input
       id="confirmPassword"
@@ -42,12 +42,18 @@
       type="password"
       formControlName="confirmPassword"
       placeholder="confirmPassword"
-    >
+    />
     <p class="text text--error" *ngIf="submitted && confirmPassword?.invalid">
       This field is invalid.
     </p>
   </div>
   <div class="buttons">
-    <button [disabled]="sending" type="submit">Save</button>
+    <span *ngIf="!_isLogin"
+      >{{ ancorObj.text }} <a routerLink="/{{ ancorObj.link }}">Login</a></span
+    >
+    <!-- <a routerLink="/{{ ancorObj.link }}" *ngIf="_isLogin"
+      >{{ ancorObj.text }}</a
+    > -->
+    <button [disabled]="sending" type="submit">Send</button>
   </div>
 </form>
