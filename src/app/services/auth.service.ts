@@ -18,7 +18,7 @@ export class AuthService {
     return signInWithEmailAndPassword(this.auth, email, password);
   }
 
-  register({ email, password }: LoginData) {
+  signup({ email, password }: LoginData) {
     return createUserWithEmailAndPassword(this.auth, email, password);
   }
 

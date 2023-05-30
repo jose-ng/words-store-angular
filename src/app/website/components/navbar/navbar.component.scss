@@ -2,7 +2,18 @@
 nav {
   display: flex;
   justify-content: space-between;
+  min-height: 64px;
+  align-items: center;
   h1 {
     font-size: 4rem;
+    margin-bottom: 0;
+  }
+  ul {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    li:last-child {
+      margin-left: 1rem;
+    }
   }
 }

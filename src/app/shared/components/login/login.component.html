@@ -1,3 +1,4 @@
+<p><a routerLink="/">Home</a></p>
 <section class="login-container">
   <div>
     <h1>
@@ -5,6 +6,6 @@
       <span *ngIf="!isLogin">Create an Account</span>
     </h1>
     <p *ngIf="isLogin">Login or <a routerLink="/signup">Signup</a></p>
-    <app-login-form [isLogin]="isLogin"></app-login-form>
+    <app-login-form [InputisLogin]="isLogin"></app-login-form>
   </div>
 </section>

@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { MyValidators } from 'src/app/utils/validators';
 
 @Component({
   selector: 'app-login-form',
@@ -10,25 +11,29 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginFormComponent {
   form!: FormGroup;
-  submitted = false;
+  emailExist = false;
   sending = false;
-  ancorObj!: { text: string, link: string };
-  _isLogin = true;
+  ancorObj!: { text: string; link: string };
+  isLogin = true;
 
-  @Input() set isLogin(isLogin: boolean) {
-    this._isLogin = isLogin;
+  @Input() set InputisLogin(isLogin: boolean) {
+    this.isLogin = isLogin;
     this.ancorObj = !isLogin
       ? { text: 'Already have an account?', link: 'login' }
       : { text: 'I forgot my password', link: 'home' };
+    this.buildForm();
+    if (!this.isLogin) {
+      this.form.setValidators([MyValidators.matchPasswords]);
+      this.form.get('confirmPassword')?.setValidators([Validators.required]);
+      this.form.get('confirmPassword')?.updateValueAndValidity();
+    }
   }
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private readonly router: Router
-  ) {
-    this.buildForm();
-  }
+  ) {}
 
   private buildForm() {
     this.form = this.formBuilder.group({
@@ -40,20 +45,43 @@ export class LoginFormComponent {
 
   save(e: MouseEvent) {
     e.preventDefault();
-    this.submitted = true;
     if (this.form.valid) {
+      this.emailExist = false;
       this.sending = true;
+      if (this.isLogin)
+        this.authService
+          .login(this.form.value)
+          .then(() => {
+            this.sending = false;
 
-      this.authService
-        .login(this.form.value)
-        .then(() => {
-          this.sending = false;
-          this.submitted = false;
-          this.router.navigate(['/']);
-        })
-        .catch((e) => console.log(e.message));
+            this.router.navigate(['/']);
+          })
+          .catch((e) => console.log(e.message));
+      else
+        this.authService
+          .signup(this.form.value)
+          .then(() => {
+            this.sending = false;
+
+            this.router.navigate(['/login']);
+          })
+          .catch((e) => {
+            const { message } = e;
+            if (message.includes('email-already-in-use'))
+              this.emailExist = true;
+            this.sending = false;
+          });
     } else {
       this.form.markAllAsTouched();
+    }
+  }
+
+  reset() {
+    this.form.reset();
+    if (!this.isLogin) {
+      this.form.setValidators([MyValidators.matchPasswords]);
+      this.form.get('confirmPassword')?.setValidators([Validators.required]);
+      this.form.get('confirmPassword')?.updateValueAndValidity();
     }
   }
 

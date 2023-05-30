@@ -1,18 +1,26 @@
-<form [formGroup]="form" (ngSubmit)="save($event)">
+<form
+  [formGroup]="form"
+  (ngSubmit)="save($event)"
+  [noValidate]="true"
+  [autocomplete]="isLogin ? 'on' : 'off'"
+>
   <div>
     <label for="email">Email</label>
     <input
       id="email"
       [ngClass]="{
-        'input input--success': submitted && email?.valid,
-        'input input--error': submitted && email?.invalid
+        'input input--success': email?.touched && email?.valid && !emailExist,
+        'input input--error': (email?.touched && email?.invalid) || emailExist
       }"
       type="text"
       formControlName="email"
       placeholder="Email"
     />
-    <p class="text text--error" *ngIf="submitted && email?.invalid">
-      This field is invalid.
+    <p class="text text--error" *ngIf="email?.touched && email?.errors">
+      This field is required
+    </p>
+    <p class="text text--error" *ngIf="emailExist">
+      This email is already in use
     </p>
   </div>
   <div>
@@ -20,35 +28,53 @@
     <input
       id="password"
       [ngClass]="{
-        'input input--success': submitted && password?.valid,
-        'input input--error': submitted && password?.invalid
+        'input input--success': password?.touched && password?.valid,
+        'input input--error': password?.touched && password?.invalid
       }"
       type="password"
       formControlName="password"
       placeholder="Password"
     />
-    <p class="text text--error" *ngIf="submitted && password?.invalid">
-      This field is invalid.
+    <p class="text text--error" *ngIf="password?.touched && password?.errors">
+      This field is required
     </p>
   </div>
-  <div *ngIf="!_isLogin">
+  <div *ngIf="!isLogin">
     <label for="confirmPassword">Confirm Password</label>
     <input
       id="confirmPassword"
       [ngClass]="{
-        'input input--success': submitted && confirmPassword?.valid,
-        'input input--error': submitted && confirmPassword?.invalid
+        'input input--success':
+          confirmPassword?.touched &&
+          confirmPassword?.valid &&
+          !form.hasError('password_mismatch'),
+        'input input--error':
+          confirmPassword?.touched &&
+          (confirmPassword?.invalid || form.hasError('password_mismatch'))
       }"
       type="password"
       formControlName="confirmPassword"
       placeholder="confirmPassword"
     />
-    <p class="text text--error" *ngIf="submitted && confirmPassword?.invalid">
-      This field is invalid.
+    <p
+      class="text text--error"
+      *ngIf="
+        confirmPassword?.touched &&
+        (form.errors || form.hasError('password_mismatch'))
+      "
+    >
+      <ng-container *ngIf="confirmPassword?.errors?.['required']">
+        This field is required
+      </ng-container>
+      <ng-container
+        *ngIf="!confirmPassword?.errors?.['required'] && form.hasError('password_mismatch')"
+      >
+        Passwords do not match
+      </ng-container>
     </p>
   </div>
   <div class="buttons">
-    <span *ngIf="!_isLogin"
+    <span *ngIf="!isLogin"
       >{{ ancorObj.text }} <a routerLink="/{{ ancorObj.link }}">Login</a></span
     >
     <!-- <a routerLink="/{{ ancorObj.link }}" *ngIf="_isLogin"
