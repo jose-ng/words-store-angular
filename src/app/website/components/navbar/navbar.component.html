@@ -1,7 +1,31 @@
-<nav>
-  <h1>Words Store</h1>
-  <ul>
-    <li><a routerLink="/login">LOGIN</a></li>
+<nav class="navbar-container">
+  <h1><a routerLink="/">Words Store</a></h1>
+  <ul *ngIf="!userIsLoggedIn">
     <li><a routerLink="/signup">SIGNUP</a></li>
+    <li><a routerLink="/login">LOGIN</a></li>
+  </ul>
+  <ul *ngIf="userIsLoggedIn">
+    <li class="img-profile">
+      <button class="button button-clear" (click)="isOpen = !isOpen">
+        <img
+          [src]="
+            userIsLoggedIn
+              ? 'https://gravatar.com/avatar/7?s=200&d=robohash&r=x'
+              : 'https://gravatar.com/avatar/7?s=200&d=robohash&r=x'
+          "
+          alt="user img"
+          width="45"
+          height="45"
+        />
+      </button>
+      <div *ngIf="isOpen" class="dropdown">
+        <a routerLink="/profile">Profile</a>
+        <div>
+          <button class="button button-clear" (click)="logout()">
+            Cerrar sesión
+          </button>
+        </div>
+      </div>
+    </li>
   </ul>
 </nav>

@@ -1,7 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FireBaseTokenData, TokenData } from 'src/app/models/login.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { TokenService } from 'src/app/services/token.service';
 import { MyValidators } from 'src/app/utils/validators';
 
 @Component({
@@ -32,7 +34,8 @@ export class LoginFormComponent {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private readonly router: Router
+    private router: Router,
+    private tokenService: TokenService
   ) {}
 
   private buildForm() {
@@ -51,9 +54,13 @@ export class LoginFormComponent {
       if (this.isLogin)
         this.authService
           .login(this.form.value)
-          .then(() => {
+          .then((data: unknown) => {
             this.sending = false;
-
+            const tokenData: TokenData = {
+              user: (data as FireBaseTokenData).user,
+              token: (data as FireBaseTokenData).user.accessToken,
+            } ;
+            this.tokenService.saveToken(tokenData);
             this.router.navigate(['/']);
           })
           .catch((e) => console.log(e.message));
@@ -62,7 +69,6 @@ export class LoginFormComponent {
           .signup(this.form.value)
           .then(() => {
             this.sending = false;
-
             this.router.navigate(['/login']);
           })
           .catch((e) => {
@@ -73,15 +79,6 @@ export class LoginFormComponent {
           });
     } else {
       this.form.markAllAsTouched();
-    }
-  }
-
-  reset() {
-    this.form.reset();
-    if (!this.isLogin) {
-      this.form.setValidators([MyValidators.matchPasswords]);
-      this.form.get('confirmPassword')?.setValidators([Validators.required]);
-      this.form.get('confirmPassword')?.updateValueAndValidity();
     }
   }
 
