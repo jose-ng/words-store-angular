@@ -1,11 +1,11 @@
 export const environment = {
   firebase: {
-    projectId: 'words-store-d8f66',
-    appId: '1:736046830063:web:947ab5af04fb77b457e61a',
-    storageBucket: 'words-store-d8f66.appspot.com',
-    apiKey: 'AIzaSyDBXGGags_1YIiUmQtPv9gJkTuJxw6Q1kI',
-    authDomain: 'words-store-d8f66.firebaseapp.com',
-    messagingSenderId: '736046830063',
+    projectId: process.env['NG_APP_projectId'],
+    appId: process.env['NG_APP_appId'],
+    storageBucket: process.env['NG_APP_storageBucket'],
+    apiKey: process.env['NG_APP_apiKey'],
+    authDomain: process.env['NG_APP_authDomain'],
+    messagingSenderId: process.env['NG_APP_messagingSenderId'],
   },
-  API_URL: 'https://words-store.vercel.app/api',
+  API_URL: process.env['NG_APP_API_URL'],
 };
