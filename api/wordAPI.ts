@@ -3,6 +3,7 @@ import Word from './modelsDB/word';
 import connectMongo from './utils/connectMongo';
 import { allowCreate } from './utils/misc';
 import * as express from 'express';
+import * as admin from 'firebase-admin';
 
 export class WordAPI {
   api(app: express.Express): void {
@@ -28,6 +29,21 @@ export class WordAPI {
     // Get All Words
     app.route('/api/word').get(async (req: Request, res: Response) => {
       try {
+        const { authorization } = req.headers;
+        const token = authorization?.split('Bearer ')[1];
+        if (token && token.length > 20) {
+          try {
+            console.log(token);
+
+            const decodedToken: admin.auth.DecodedIdToken = await admin
+              .auth()
+              .verifyIdToken(token);
+            console.log('decodedToken', JSON.stringify(decodedToken));
+          } catch (err) {
+            console.log(err);
+          }
+        }
+
         await connectMongo();
         const { query } = req;
         const { q, skip, limit } = query;
