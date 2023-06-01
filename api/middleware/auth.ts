@@ -7,7 +7,7 @@ export async function isAuthenticated(
   next: NextFunction
 ) {
   const { authorization } = req.headers;
-  console.log('Hola', authorization);
+
   if (!authorization) next();
 
   if (!authorization) return res.status(401).send({ message: 'Unauthorized' });
@@ -21,6 +21,9 @@ export async function isAuthenticated(
 
   const token = split[1];
 
+  if (!token)
+    return res.status(401).send({ message: 'Unauthorized' });
+
   try {
     const decodedToken: admin.auth.DecodedIdToken = await admin
       .auth()
@@ -31,6 +34,7 @@ export async function isAuthenticated(
       uid: decodedToken.uid,
       email: decodedToken.email,
     };
+
     return next();
   } catch (err) {
     return res.status(401).send({ message: 'Unauthorized' });

@@ -1,49 +1,49 @@
 import { Request, Response } from 'express';
 import Word from './modelsDB/word';
 import connectMongo from './utils/connectMongo';
-import { allowCreate } from './utils/misc';
 import * as express from 'express';
-import * as admin from 'firebase-admin';
+import { isAuthenticated } from './middleware/auth';
 
 export class WordAPI {
   api(app: express.Express): void {
-    // Create Word
-    app.route('/api/word').post(async (req: Request, res: Response) => {
-      try {
-        if (!allowCreate(req.body.code)) {
-          res.status(403).json({ error: 'forbbiden' });
-          return;
+    // Update Rating
+    app
+      .route('/api/word/updateRating')
+      .post(isAuthenticated, async (req: Request, res: Response) => {
+        try {
+          await connectMongo();
+          const word = await Word.findById(req.body.id).exec();
+          const updated = await Word.findOneAndUpdate(
+            { _id: req.body.id },
+            { rating: (word.rating || 0) + req.body.rating },
+            { new: true }
+          ).exec();
+
+          res.status(200).json(updated);
+        } catch (err) {
+          res.status(400).json({ error: 'Internal server error' });
         }
+      });
 
-        await connectMongo();
-        const newWord = req.body;
-        delete newWord.code;
-        const word = await Word.create(newWord);
+    // Create Word
+    app
+      .route('/api/word')
+      .post(isAuthenticated, async (req: Request, res: Response) => {
+        try {
+          await connectMongo();
+          const newWord = req.body;
+          delete newWord.code;
+          const word = await Word.create(newWord);
 
-        res.status(201).json(word);
-      } catch (err) {
-        res.status(400).json({ error: 'Internal server error' });
-      }
-    });
+          res.status(201).json(word);
+        } catch (err) {
+          res.status(400).json({ error: 'Internal server error' });
+        }
+      });
 
     // Get All Words
     app.route('/api/word').get(async (req: Request, res: Response) => {
       try {
-        const { authorization } = req.headers;
-        const token = authorization?.split('Bearer ')[1];
-        if (token && token.length > 20) {
-          try {
-            console.log(token);
-
-            const decodedToken: admin.auth.DecodedIdToken = await admin
-              .auth()
-              .verifyIdToken(token);
-            console.log('decodedToken', JSON.stringify(decodedToken));
-          } catch (err) {
-            console.log(err);
-          }
-        }
-
         await connectMongo();
         const { query } = req;
         const { q, skip, limit } = query;
@@ -66,29 +66,6 @@ export class WordAPI {
         res.status(400).json({ error: err });
       }
     });
-
-    app
-      .route('/api/word/updateRating')
-      .post(async (req: Request, res: Response) => {
-        try {
-          if (!allowCreate(req.body.code)) {
-            res.status(403).json({ error: 'forbbiden' });
-            return;
-          }
-
-          await connectMongo();
-          const word = await Word.findById(req.body.id).exec();
-          const updated = await Word.findOneAndUpdate(
-            { _id: req.body.id },
-            { rating: (word.rating || 0) + req.body.rating },
-            { new: true }
-          ).exec();
-
-          res.status(200).json(updated);
-        } catch (err) {
-          res.status(400).json({ error: 'Internal server error' });
-        }
-      });
 
     // // Get Single Word
     // app

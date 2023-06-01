@@ -1,21 +1,16 @@
 import { Request, Response } from 'express';
 import Note from './modelsDB/note';
 import connectMongo from './utils/connectMongo';
-import { allowCreate } from './utils/misc';
 import * as express from 'express';
+import { isAuthenticated } from './middleware/auth';
 
 export class NoteAPI {
   api(app: express.Express): void {
     // Update Rating
     app
       .route('/api/note/updateRating')
-      .post(async (req: Request, res: Response) => {
+      .post(isAuthenticated, async (req: Request, res: Response) => {
         try {
-          if (!allowCreate(req.body.code)) {
-            res.status(403).json({ error: 'forbbiden' });
-            return;
-          }
-
           await connectMongo();
           const note = await Note.findById(req.body.id).exec();
           const updated = await Note.findOneAndUpdate(
@@ -31,22 +26,19 @@ export class NoteAPI {
       });
 
     // Create Note
-    app.route('/api/note').post(async (req: Request, res: Response) => {
-      try {
-        if (!allowCreate(req.body.code)) {
-          res.status(403).json({ error: 'forbbiden' });
-          return;
+    app
+      .route('/api/note')
+      .post(isAuthenticated, async (req: Request, res: Response) => {
+        try {
+          await connectMongo();
+          const newNote = req.body;
+          delete newNote.code;
+          const note = await Note.create(newNote);
+          res.status(201).json(note);
+        } catch (err) {
+          res.status(400).json({ error: 'Internal server error' });
         }
-
-        await connectMongo();
-        const newNote = req.body;
-        delete newNote.code;
-        const note = await Note.create(newNote);
-        res.status(201).json(note);
-      } catch (err) {
-        res.status(400).json({ error: 'Internal server error' });
-      }
-    });
+      });
 
     // Get All Notes
     app.route('/api/note').get(async (req: Request, res: Response) => {

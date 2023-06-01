@@ -49,14 +49,14 @@ export function app(): express.Express {
 
   admin.initializeApp({
     credential: admin.credential.cert({
-      privateKey: (process.env['NG_APP_privateKey'] as string)
-        ? (process.env['NG_APP_privateKey'] as string).replace(
+      privateKey: (process.env['privateKey'] as string)
+        ? (process.env['privateKey'] as string).replace(
             /\\n/gm,
             '\n'
           )
         : undefined,
       projectId: process.env['NG_APP_projectId'],
-      clientEmail: process.env['NG_APP_clientEmail'],
+      clientEmail: process.env['clientEmail'],
     }),
   });
 
