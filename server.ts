@@ -1,16 +1,13 @@
 import 'zone.js/node';
-import * as dotenv from 'dotenv';
 import { APP_BASE_HREF } from '@angular/common';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
 import { existsSync } from 'fs';
 import { join } from 'path';
-
 import { AppServerModule } from './src/main.server';
 import { WordAPI } from './api/wordAPI';
 import { NoteAPI } from './api/noteAPI';
 
-dotenv.config();
 const wordAPI: WordAPI = new WordAPI();
 const noteAPI: NoteAPI = new NoteAPI();
 
