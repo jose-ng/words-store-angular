@@ -11,6 +11,7 @@ Made with Angular.
 - Mongo with moongose configuration for handling the db connection
 - Authentication with Firebase
 - @ngx-env/builder for access to environment variables
+- Use Vercel configuration
 
 ## TODO
 
