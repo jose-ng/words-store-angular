@@ -11,26 +11,35 @@ import { TokenService } from './token.service';
 export class WordService {
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
-  getWords(p: Params) {
+  updateRating(dto: { id: string; rating: number }) {
     const tokenAuth = this.tokenService.getToken();
     let headers = new HttpHeaders();
     const token = tokenAuth?.token;
     headers = headers.set('Authorization', `Bearer ${token}`);
 
+    return this.http.post<Word>(
+      `${environment.API_URL}/word/updateRating`,
+      dto,
+      { headers }
+    );
+  }
+
+  create(dto: CreateWordDTO) {
+    const tokenAuth = this.tokenService.getToken();
+    let headers = new HttpHeaders();
+    const token = tokenAuth?.token;
+    headers = headers.set('Authorization', `Bearer ${token}`);
+
+    return this.http.post<Word>(`${environment.API_URL}/word`, dto, {
+      headers,
+    });
+  }
+
+  getWords(p: Params) {
     const params = new HttpParams({ fromObject: { ...p } });
     return this.http.get<{ words: Word[]; totalWords: number }>(
       `${environment.API_URL}/word`,
-      { params, headers }
-    );
-  }
-  create(dto: CreateWordDTO) {
-    return this.http.post<Word>(`${environment.API_URL}/word`, dto);
-  }
-
-  updateRating(dto: { id: string; rating: number }) {
-    return this.http.post<Word>(
-      `${environment.API_URL}/word/updateRating`,
-      dto
+      { params }
     );
   }
 }

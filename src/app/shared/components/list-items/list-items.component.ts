@@ -4,16 +4,18 @@ import {
   Input,
   OnChanges,
   Output,
+  OnInit,
 } from '@angular/core';
 import { Note } from 'src/app/models/note.model';
 import { Word } from 'src/app/models/word.model';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-list-items',
   templateUrl: './list-items.component.html',
   styleUrls: ['./list-items.component.scss'],
 })
-export class ListItemsComponent implements OnChanges {
+export class ListItemsComponent implements OnChanges, OnInit {
   words: Word[] = [];
   notes: Note[] = [];
 
@@ -24,6 +26,14 @@ export class ListItemsComponent implements OnChanges {
     isNote: boolean;
     rating: number;
   }>();
+  userIsLoggedIn = false;
+
+  constructor(private tokenService: TokenService) {}
+
+  ngOnInit(): void {
+    const tokenAuth = this.tokenService.getToken();
+    this.userIsLoggedIn = tokenAuth?.user ? true : false;
+  }
 
   ngOnChanges(): void {
     if (!this.showNotes) this.words = this.listItems as Word[];

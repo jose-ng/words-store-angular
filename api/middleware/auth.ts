@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import * as admin from 'firebase-admin';
+import * as fireBaseAdmin from 'firebase-admin';
 
 export async function isAuthenticated(
   req: Request,
@@ -9,9 +9,7 @@ export async function isAuthenticated(
   const { authorization } = req.headers;
 
   if (!authorization) next();
-
   if (!authorization) return res.status(401).send({ message: 'Unauthorized' });
-
   if (!authorization.startsWith('Bearer'))
     return res.status(401).send({ message: 'Unauthorized' });
 
@@ -21,14 +19,13 @@ export async function isAuthenticated(
 
   const token = split[1];
 
-  if (!token)
-    return res.status(401).send({ message: 'Unauthorized' });
+  if (!token) return res.status(401).send({ message: 'Unauthorized' });
 
   try {
-    const decodedToken: admin.auth.DecodedIdToken = await admin
+    const decodedToken: fireBaseAdmin.auth.DecodedIdToken = await fireBaseAdmin
       .auth()
       .verifyIdToken(token);
-    console.log('decodedToken', JSON.stringify(decodedToken));
+
     res.locals = {
       ...res.locals,
       uid: decodedToken.uid,

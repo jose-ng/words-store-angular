@@ -4,7 +4,7 @@
       [ngClass]="item.hideAllText ? 'item item--hide-all-text' : 'item '"
       *ngFor="let item of words"
     >
-      <span class="ranting" *ngIf="item.hideAllText">
+      <span class="ranting" *ngIf="userIsLoggedIn && item.hideAllText">
         <button
           class="button button-outline"
           type="button"

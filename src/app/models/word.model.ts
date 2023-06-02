@@ -6,7 +6,4 @@ export interface Word {
   hideAllText: boolean;
 }
 
-export interface CreateWordDTO
-  extends Omit<Word, 'id' | 'hideAllText' | 'rating'> {
-  code: number;
-}
+export type CreateWordDTO = Omit<Word, 'id' | 'hideAllText' | 'rating'>;

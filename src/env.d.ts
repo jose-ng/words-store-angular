@@ -10,7 +10,7 @@ interface ImportMetaEnv {
   readonly NG_APP_ENV: string;
   // Add your environment variables below
   // readonly NG_APP_API_URL: string;
-  [key: string]: any;
+  [key: string]: string;
 }
 
 /*
@@ -22,10 +22,10 @@ interface ImportMetaEnv {
  * @deprecated process.env usage
  * prefer using meta.env
  * */
-declare var process: {
+declare let process: {
   env: {
     NG_APP_ENV: string;
-    [key: string]: any;
+    [key: string]: string;
   };
 };
 

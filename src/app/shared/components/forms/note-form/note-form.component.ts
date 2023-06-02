@@ -32,7 +32,6 @@ export class NoteFormComponent extends ModalContentBase {
     this.form = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(200)]],
       text: ['', [Validators.required]],
-      code: ['', [Validators.required, Validators.maxLength(45)]],
     });
   }
 
@@ -42,9 +41,20 @@ export class NoteFormComponent extends ModalContentBase {
     if (this.form.valid) {
       this.sending = true;
       const product: CreateNoteDTO = this.form.value;
-      this.noteService.create(product).subscribe((data) => {
-        console.log(data);
-      });
+      this.noteService.create(product).subscribe(
+        () => {
+          this.sending = false;
+          this.submitted = false;
+          // Reload list
+          this.modalService.dataReceived.next();
+          this.cancel();
+        },
+        (err) => {
+          console.log(err);
+          this.sending = false;
+          this.submitted = false;
+        }
+      );
 
       this.sending = false;
       this.submitted = false;
@@ -65,9 +75,5 @@ export class NoteFormComponent extends ModalContentBase {
 
   get text() {
     return this.form.get('text');
-  }
-
-  get code() {
-    return this.form.get('code');
   }
 }

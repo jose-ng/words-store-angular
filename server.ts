@@ -7,7 +7,7 @@ import { join } from 'path';
 import { AppServerModule } from './src/main.server';
 import { WordAPI } from './api/wordAPI';
 import { NoteAPI } from './api/noteAPI';
-import * as admin from 'firebase-admin';
+import * as firebaseAdmin from 'firebase-admin';
 
 const wordAPI: WordAPI = new WordAPI();
 const noteAPI: NoteAPI = new NoteAPI();
@@ -47,8 +47,8 @@ export function app(): express.Express {
   wordAPI.api(server);
   noteAPI.api(server);
 
-  admin.initializeApp({
-    credential: admin.credential.cert({
+  firebaseAdmin.initializeApp({
+    credential: firebaseAdmin.credential.cert({
       privateKey: (process.env['privateKey'] as string)
         ? (process.env['privateKey'] as string).replace(
             /\\n/gm,
