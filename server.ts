@@ -1,16 +1,14 @@
 import 'zone.js/node';
-import * as dotenv from 'dotenv';
 import { APP_BASE_HREF } from '@angular/common';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
 import { existsSync } from 'fs';
 import { join } from 'path';
-
 import { AppServerModule } from './src/main.server';
-import { WordAPI } from 'src/api/wordAPI';
-import { NoteAPI } from 'src/api/noteAPI';
+import { WordAPI } from './api/wordAPI';
+import { NoteAPI } from './api/noteAPI';
+import * as firebaseAdmin from 'firebase-admin';
 
-dotenv.config();
 const wordAPI: WordAPI = new WordAPI();
 const noteAPI: NoteAPI = new NoteAPI();
 
@@ -48,6 +46,19 @@ export function app(): express.Express {
 
   wordAPI.api(server);
   noteAPI.api(server);
+
+  firebaseAdmin.initializeApp({
+    credential: firebaseAdmin.credential.cert({
+      privateKey: (process.env['privateKey'] as string)
+        ? (process.env['privateKey'] as string).replace(
+            /\\n/gm,
+            '\n'
+          )
+        : undefined,
+      projectId: process.env['NG_APP_projectId'],
+      clientEmail: process.env['clientEmail'],
+    }),
+  });
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {

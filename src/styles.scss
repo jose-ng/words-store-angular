@@ -8,6 +8,10 @@ $accentColor: #febd11;
 $medium: 640px;
 $x-large: 1200px;
 
+* {
+  box-sizing: border-box;
+}
+
 ul {
   list-style: none;
 }
@@ -33,6 +37,7 @@ p {
   body {
     color: rgb(194, 194, 194);
     background: black;
+    margin: 0;
   }
 }
 
@@ -50,7 +55,8 @@ button.button-clear {
   line-height: 0;
 }
 
-input.input, textarea.input {
+input.input,
+textarea.input {
   &--error {
     border-color: #e57373;
   }

@@ -8,6 +8,8 @@ import { WordFormComponent } from './components/forms/word-form/word-form.compon
 import { NoteFormComponent } from './components/forms/note-form/note-form.component';
 import { ModalAnchorComponent } from './components/dynamic/modal-anchor/modal-anchor.component';
 import { ModalService } from '../services/modal.service';
+import { LoginFormComponent } from './components/forms/login-form/login-form.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -15,10 +17,11 @@ import { ModalService } from '../services/modal.service';
     ListItemsComponent,
     WordFormComponent,
     NoteFormComponent,
+    LoginFormComponent,
     ModalAnchorComponent,
     ModalComponent,
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
   exports: [
     SearchComponent,
     ListItemsComponent,
@@ -26,6 +29,7 @@ import { ModalService } from '../services/modal.service';
     NoteFormComponent,
     ModalAnchorComponent,
     ModalComponent,
+    LoginFormComponent,
   ],
   providers: [ModalService],
 })

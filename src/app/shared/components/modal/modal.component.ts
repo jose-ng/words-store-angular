@@ -1,12 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  Type,
-  ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
-import ModalContentBaseComponent from 'src/app/models/modal.content.base';
+import { Component, Input } from '@angular/core';
 import { ModalType } from 'src/app/models/modal.model';
 import { ModalService } from 'src/app/services/modal.service';
 

@@ -12,6 +12,7 @@
       (change)="changeShowNotes()"
   /></label>
   <button
+    *ngIf="userIsLoggedIn"
     class="button buton-outline"
     type="button"
     (click)="openModal()"
@@ -24,6 +25,7 @@
   [listItems]="listItems"
   [showNotes]="showNotes"
   (updateRating)="updateNotesHandler($event)"
+  [loading]="loading"
 ></app-list-items>
 <div class="show-more" *ngIf="listItems.length > 0">
   <button

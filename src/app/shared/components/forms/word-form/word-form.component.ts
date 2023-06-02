@@ -32,7 +32,6 @@ export class WordFormComponent extends ModalContentBase {
     this.form = this.formBuilder.group({
       text_en: ['', [Validators.required, Validators.maxLength(45)]],
       text_es: ['', [Validators.required, Validators.maxLength(45)]],
-      code: ['', [Validators.required, Validators.maxLength(45)]],
     });
   }
 
@@ -43,14 +42,20 @@ export class WordFormComponent extends ModalContentBase {
       this.sending = true;
 
       const product: CreateWordDTO = this.form.value;
-      this.wordService.create(product).subscribe((data) => {
-        console.log(data);
-      });
-
-      this.sending = false;
-      this.submitted = false;
-      this.modalService.dataReceived.next();
-      this.cancel();
+      this.wordService.create(product).subscribe(
+        () => {
+          this.sending = false;
+          this.submitted = false;
+          // Reload list
+          this.modalService.dataReceived.next();
+          this.cancel();
+        },
+        (err) => {
+          console.log(err);
+          this.sending = false;
+          this.submitted = false;
+        }
+      );
     } else {
       this.form.markAllAsTouched();
     }
@@ -66,9 +71,5 @@ export class WordFormComponent extends ModalContentBase {
 
   get text_en() {
     return this.form.get('text_en');
-  }
-
-  get code() {
-    return this.form.get('code');
   }
 }

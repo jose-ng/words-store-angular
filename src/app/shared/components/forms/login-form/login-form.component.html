@@ -1,0 +1,85 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="save($event)"
+  [noValidate]="true"
+  [autocomplete]="isLogin ? 'on' : 'off'"
+>
+  <div>
+    <label for="email">Email</label>
+    <input
+      id="email"
+      [ngClass]="{
+        'input input--success': email?.touched && email?.valid && !emailExist,
+        'input input--error': (email?.touched && email?.invalid) || emailExist
+      }"
+      type="text"
+      formControlName="email"
+      placeholder="Email"
+    />
+    <p class="text text--error" *ngIf="email?.touched && email?.errors">
+      This field is required
+    </p>
+    <p class="text text--error" *ngIf="emailExist">
+      This email is already in use
+    </p>
+  </div>
+  <div>
+    <label for="password">Password</label>
+    <input
+      id="password"
+      [ngClass]="{
+        'input input--success': password?.touched && password?.valid,
+        'input input--error': password?.touched && password?.invalid
+      }"
+      type="password"
+      formControlName="password"
+      placeholder="Password"
+    />
+    <p class="text text--error" *ngIf="password?.touched && password?.errors">
+      This field is required
+    </p>
+  </div>
+  <div *ngIf="!isLogin">
+    <label for="confirmPassword">Confirm Password</label>
+    <input
+      id="confirmPassword"
+      [ngClass]="{
+        'input input--success':
+          confirmPassword?.touched &&
+          confirmPassword?.valid &&
+          !form.hasError('password_mismatch'),
+        'input input--error':
+          confirmPassword?.touched &&
+          (confirmPassword?.invalid || form.hasError('password_mismatch'))
+      }"
+      type="password"
+      formControlName="confirmPassword"
+      placeholder="confirmPassword"
+    />
+    <p
+      class="text text--error"
+      *ngIf="
+        confirmPassword?.touched &&
+        (form.errors || form.hasError('password_mismatch'))
+      "
+    >
+      <ng-container *ngIf="confirmPassword?.errors?.['required']">
+        This field is required
+      </ng-container>
+      <ng-container
+        *ngIf="!confirmPassword?.errors?.['required'] && form.hasError('password_mismatch')"
+      >
+        Passwords do not match
+      </ng-container>
+    </p>
+  </div>
+  <div class="buttons">
+    <span *ngIf="!isLogin"
+      >{{ ancorObj.text }} <a routerLink="/{{ ancorObj.link }}">Login</a></span
+    >
+    <!-- <a routerLink="/{{ ancorObj.link }}" *ngIf="_isLogin"
+      >{{ ancorObj.text }}</a
+    > -->
+    <button [disabled]="sending" type="submit">Send</button>
+  </div>
+</form>

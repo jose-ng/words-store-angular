@@ -7,7 +7,4 @@ export interface Note {
   hideAllText: boolean;
 }
 
-export interface CreateNoteDTO
-  extends Omit<Note, 'id' | 'hideAllText' | 'rating'> {
-  code: number;
-}
+export type CreateNoteDTO = Omit<Note, 'id' | 'hideAllText' | 'rating'>;
