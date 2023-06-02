@@ -26,6 +26,7 @@ export class ListItemsComponent implements OnChanges, OnInit {
     isNote: boolean;
     rating: number;
   }>();
+  @Input() loading = false;
   userIsLoggedIn = false;
 
   constructor(private tokenService: TokenService) {}

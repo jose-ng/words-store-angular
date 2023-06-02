@@ -9,6 +9,7 @@
           class="button button-outline"
           type="button"
           (click)="updateRatingInput(item, 1, false)"
+          [disabled]="loading"
         >
           <span class="material-icons">keyboard_arrow_up</span>
         </button>
@@ -16,6 +17,7 @@
           class="button button-outline"
           type="button"
           (click)="updateRatingInput(item, -1, false)"
+          [disabled]="loading"
         >
           <span class="material-icons">keyboard_arrow_down</span>
         </button>

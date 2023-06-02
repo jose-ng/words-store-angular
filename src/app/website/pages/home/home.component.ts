@@ -151,6 +151,7 @@ export class HomeComponent implements OnInit {
     serviceFunction.subscribe((dataRaw: unknown) => {
       const data = dataRaw as Word | Note;
       console.log(data);
+      this.loading = false;
     });
   }
 }

@@ -25,6 +25,7 @@
   [listItems]="listItems"
   [showNotes]="showNotes"
   (updateRating)="updateNotesHandler($event)"
+  [loading]="loading"
 ></app-list-items>
 <div class="show-more" *ngIf="listItems.length > 0">
   <button
