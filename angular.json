@@ -28,7 +28,8 @@
               "node_modules/milligram/dist/milligram.min.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "outputHashing": "all"
           },
           "configurations": {
             "production": {
