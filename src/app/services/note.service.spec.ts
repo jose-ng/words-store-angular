@@ -1,16 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 
 import { NoteService } from './note.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('NoteService', () => {
   let service: NoteService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [NoteService],
-    });
+    imports: [],
+    providers: [NoteService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     service = TestBed.inject(NoteService);
   });
 
