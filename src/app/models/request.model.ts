@@ -1,6 +1,6 @@
 export interface Params {
-  q?: string;
-  skip: number;
-  limit: number;
+  query?: string;
+  skip?: number;
+  limit?: number;
 }
 

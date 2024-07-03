@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/user.model';
-import { TokenService } from 'src/app/services/token.service';
+import { User } from '@models/user.model';
+import { TokenService } from '@services/token.service';
 
 @Component({
   selector: 'app-navbar',

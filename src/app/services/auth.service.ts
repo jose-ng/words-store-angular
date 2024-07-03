@@ -1,28 +1,29 @@
-import {
-  Auth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-} from '@angular/fire/auth';
+// import {
+//   Auth,
+//   createUserWithEmailAndPassword,
+//   signInWithEmailAndPassword,
+//   signOut,
+// } from '@angular/fire/auth';
 
 import { Injectable } from '@angular/core';
-import { LoginData } from '../models/login.model';
+import { LoginData } from '@models/login.model';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private auth: Auth) {}
+  constructor() {}
 
   login({ email, password }: LoginData) {
-    return signInWithEmailAndPassword(this.auth, email, password);
+    return of({ email, password });
   }
 
   signup({ email, password }: LoginData) {
-    return createUserWithEmailAndPassword(this.auth, email, password);
+    return of({ email, password });
   }
 
   logout() {
-    return signOut(this.auth);
+    return null
   }
 }

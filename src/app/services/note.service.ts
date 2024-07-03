@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Params } from '../models/request.model';
+import { Params } from '@models/request.model';
 import { CreateNoteDTO, Note } from '../models/note.model';
-import { environment } from 'src/environments/environment';
+import { environment } from '@/src/environments/environment';
 import { TokenService } from './token.service';
 
 @Injectable({
@@ -10,6 +10,14 @@ import { TokenService } from './token.service';
 })
 export class NoteService {
   constructor(private http: HttpClient, private tokenService: TokenService) {}
+
+  getNotes(p: Params) {
+    const params = new HttpParams({ fromObject: { ...p } });
+    return this.http.get<{ notes: Note[]; totalNotes: number }>(
+      `${environment.API_URL}/api/v1/note`,
+      { params }
+    );
+  }
 
   updateRating(dto: { id: string; rating: number }) {
     const tokenAuth = this.tokenService.getToken();
@@ -31,13 +39,5 @@ export class NoteService {
     return this.http.post<Note>(`${environment.API_URL}/note`, dto, {
       headers,
     });
-  }
-
-  getNotes(p: Params) {
-    const params = new HttpParams({ fromObject: { ...p } });
-    return this.http.get<{ notes: Note[]; totalNotes: number }>(
-      `${environment.API_URL}/note`,
-      { params }
-    );
   }
 }

@@ -10,6 +10,7 @@ import { ModalAnchorComponent } from './components/dynamic/modal-anchor/modal-an
 import { ModalService } from '../services/modal.service';
 import { LoginFormComponent } from './components/forms/login-form/login-form.component';
 import { RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { RouterModule } from '@angular/router';
     ModalAnchorComponent,
     ModalComponent,
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, RouterModule],
   exports: [
     SearchComponent,
     ListItemsComponent,

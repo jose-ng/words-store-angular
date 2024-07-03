@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import ModalContentBase from 'src/app/models/modal.content.base';
-import { ModalType } from 'src/app/models/modal.model';
-import { CreateNoteDTO } from 'src/app/models/note.model';
-import { ModalService } from 'src/app/services/modal.service';
-import { NoteService } from 'src/app/services/note.service';
+import ModalContentBase from '@models/modal.content.base';
+import { ModalType } from '@models/modal.model';
+import { CreateNoteDTO } from '@models/note.model';
+import { ModalService } from '@services/modal.service';
+import { NoteService } from '@services/note.service';
 
 @Component({
   selector: 'app-note-form',

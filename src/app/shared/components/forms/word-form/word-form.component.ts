@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import ModalContentBase from 'src/app/models/modal.content.base';
-import { ModalType } from 'src/app/models/modal.model';
-import { CreateWordDTO } from 'src/app/models/word.model';
-import { ModalService } from 'src/app/services/modal.service';
-import { WordService } from 'src/app/services/word.service';
+import ModalContentBase from '@models/modal.content.base';
+import { ModalType } from '@models/modal.model';
+import { CreateWordDTO } from '@models/word.model';
+import { ModalService } from '@services/modal.service';
+import { WordService } from '@services/word.service';
 
 @Component({
   selector: 'app-word-form',

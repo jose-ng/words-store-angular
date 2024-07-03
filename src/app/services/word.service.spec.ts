@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { WordService } from './word.service';
-import { environment } from 'src/environments/environment';
 import { generateManyWords } from '../models/word.mock';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { environment } from '@/src/environments/environment';
 
 describe('WordsService', () => {
   let service: WordService;

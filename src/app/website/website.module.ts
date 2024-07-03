@@ -16,6 +16,6 @@ import { ProfileComponent } from './components/profile/profile.component';
     NavbarComponent,
     ProfileComponent,
   ],
-  imports: [CommonModule, WebsiteRoutingModule, SharedModule, FormsModule],
+  imports: [CommonModule, WebsiteRoutingModule, SharedModule, FormsModule]
 })
 export class WebsiteModule {}

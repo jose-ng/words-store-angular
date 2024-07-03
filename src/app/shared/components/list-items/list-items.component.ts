@@ -6,9 +6,9 @@ import {
   Output,
   OnInit,
 } from '@angular/core';
-import { Note } from 'src/app/models/note.model';
-import { Word } from 'src/app/models/word.model';
-import { TokenService } from 'src/app/services/token.service';
+import { Note } from '@models/note.model';
+import { Word } from '@models/word.model';
+import { TokenService } from '@services/token.service';
 
 @Component({
   selector: 'app-list-items',
