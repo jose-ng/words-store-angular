@@ -1,5 +1,7 @@
-<section class="layout">  
-  <app-navbar></app-navbar>  
-  <router-outlet></router-outlet>  
-  <app-modal-anchor></app-modal-anchor>  
-</section>
+<ng-container>
+  <app-header></app-header>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+  <app-modal-anchor></app-modal-anchor>
+</ng-container>

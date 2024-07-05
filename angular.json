@@ -39,7 +39,7 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/assets/css/styles.scss"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
