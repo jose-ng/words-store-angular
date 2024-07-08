@@ -4,37 +4,40 @@
 ></app-search>
 <div class="row-new-item">
   <label for="showNotesId"
-    >Show notes2
+    >Show notes
     <input
       id="showNotesId"
       type="checkbox"
       [(ngModel)]="showNotes"
       (change)="changeShowNotes()"
-  /></label>
-  <button
-    *ngIf="userIsLoggedIn"
-    class="button buton-outline"
-    type="button"
-    (click)="openModal()"
-    [disabled]=""
-  >
-    {{ !showNotes ? "Add New Word" : "Add New Note" }}
-  </button>
-</div>
-<app-list-items
-  [listItems]="listItems"
-  [showNotes]="showNotes"
-  (updateRating)="updateNotesHandler($event)"
-  [loading]="loading"
-></app-list-items>
-<div class="show-more" *ngIf="listItems.length > 0">
-  <button
-    class="button buton-outline"
-    type="button"
-    (click)="showMore()"
-    [disabled]="loading || listItems.length >= totalItems"
-  >
-    Load More
-  </button>
-  <div>Total: {{ totalShowedItems }} / {{ totalItems }}</div>
-</div>
+    /></label>
+    @if (userIsLoggedIn) {
+      <button
+        class="button buton-outline"
+        type="button"
+        (click)="openModal()"
+        [disabled]=""
+        >
+        {{ !showNotes ? "Add New Word" : "Add New Note" }}
+      </button>
+    }
+  </div>
+  <app-list-items
+    [listItems]="listItems"
+    [showNotes]="showNotes"
+    (updateRating)="updateNotesHandler($event)"
+    [loading]="loading"
+  ></app-list-items>
+  @if (listItems.length > 0) {
+    <div class="show-more">
+      <button
+        class="button buton-outline"
+        type="button"
+        (click)="showMore()"
+        [disabled]="loading || listItems.length >= totalItems"
+        >
+        Load More
+      </button>
+      <div>Total: {{ totalShowedItems }} / {{ totalItems }}</div>
+    </div>
+  }

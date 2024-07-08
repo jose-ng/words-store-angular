@@ -3,7 +3,7 @@
   (ngSubmit)="save($event)"
   [noValidate]="true"
   [autocomplete]="isLogin ? 'on' : 'off'"
->
+  >
   <div>
     <label for="email">Email</label>
     <input
@@ -15,34 +15,41 @@
       type="text"
       formControlName="email"
       placeholder="Email"
-    />
-    <p class="text text--error" *ngIf="email?.touched && email?.errors">
-      This field is required
-    </p>
-    <p class="text text--error" *ngIf="emailExist">
-      This email is already in use
-    </p>
-  </div>
-  <div>
-    <label for="password">Password</label>
-    <input
-      id="password"
+      />
+      @if (email?.touched && email?.errors) {
+        <p class="text text--error">
+          This field is required
+        </p>
+      }
+      @if (emailExist) {
+        <p class="text text--error">
+          This email is already in use
+        </p>
+      }
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input
+        id="password"
       [ngClass]="{
         'input input--success': password?.touched && password?.valid,
         'input input--error': password?.touched && password?.invalid
       }"
-      type="password"
-      formControlName="password"
-      placeholder="Password"
-    />
-    <p class="text text--error" *ngIf="password?.touched && password?.errors">
-      This field is required
-    </p>
-  </div>
-  <div *ngIf="!isLogin">
-    <label for="confirmPassword">Confirm Password</label>
-    <input
-      id="confirmPassword"
+        type="password"
+        formControlName="password"
+        placeholder="Password"
+        />
+        @if (password?.touched && password?.errors) {
+          <p class="text text--error">
+            This field is required
+          </p>
+        }
+      </div>
+      @if (!isLogin) {
+        <div>
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            id="confirmPassword"
       [ngClass]="{
         'input input--success':
           confirmPassword?.touched &&
@@ -52,34 +59,36 @@
           confirmPassword?.touched &&
           (confirmPassword?.invalid || form.hasError('password_mismatch'))
       }"
-      type="password"
-      formControlName="confirmPassword"
-      placeholder="confirmPassword"
-    />
-    <p
-      class="text text--error"
-      *ngIf="
-        confirmPassword?.touched &&
-        (form.errors || form.hasError('password_mismatch'))
-      "
-    >
-      <ng-container *ngIf="confirmPassword?.errors?.['required']">
-        This field is required
-      </ng-container>
-      <ng-container
-        *ngIf="!confirmPassword?.errors?.['required'] && form.hasError('password_mismatch')"
-      >
-        Passwords do not match
-      </ng-container>
-    </p>
-  </div>
-  <div class="buttons">
-    <span *ngIf="!isLogin"
-      >{{ ancorObj.text }} <a routerLink="/{{ ancorObj.link }}">Login</a></span
-    >
-    <!-- <a routerLink="/{{ ancorObj.link }}" *ngIf="_isLogin"
-      >{{ ancorObj.text }}</a
-    > -->
-    <button [disabled]="sending" type="submit">Send</button>
-  </div>
-</form>
+            type="password"
+            formControlName="confirmPassword"
+            placeholder="confirmPassword"
+            />
+            @if (
+              confirmPassword?.touched &&
+              (form.errors || form.hasError('password_mismatch'))
+              ) {
+              <p
+                class="text text--error"
+                >
+                @if (confirmPassword?.errors?.['required']) {
+                  This field is required
+                }
+                @if (!confirmPassword?.errors?.['required'] && form.hasError('password_mismatch')) {
+                  Passwords do not match
+                }
+              </p>
+            }
+          </div>
+        }
+        <div class="buttons">
+          @if (!isLogin) {
+            <span
+              >{{ ancorObj.text }} <a routerLink="/{{ ancorObj.link }}">Login</a></span
+              >
+          }
+          <!-- <a routerLink="/{{ ancorObj.link }}" *ngIf="_isLogin"
+          >{{ ancorObj.text }}</a
+          > -->
+          <button [disabled]="sending" type="submit">Send</button>
+        </div>
+      </form>

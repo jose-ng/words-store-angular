@@ -11,37 +11,41 @@
         type="text"
         formControlName="title"
         placeholder="Note Title"
-      />
-      <p class="text text--error" *ngIf="submitted && title?.invalid">
-        This field is invalid.
-      </p>
-    </div>
-    <div>
-      <label for="text">Note</label>
-      <textarea
-        id="text"
+        />
+        @if (submitted && title?.invalid) {
+          <p class="text text--error">
+            This field is invalid.
+          </p>
+        }
+      </div>
+      <div>
+        <label for="text">Note</label>
+        <textarea
+          id="text"
         [ngClass]="{
           'input input--success': submitted && text?.valid,
           'input input--error': submitted && text?.invalid
         }"
-        rows="10"
-        formControlName="text"
-        placeholder="Describe..."
-      ></textarea>
-      <p class="text text--error" *ngIf="submitted && text?.invalid">
-        This field is invalid.
-      </p>
-    </div>
-    <div class="buttons">
-      <button
-        class="button button-outline"
-        [disabled]="sending"
-        type="button"
-        (click)="cancel()"
-      >
-        Cancel
-      </button>
-      <button [disabled]="sending" type="submit">Save</button>
-    </div>
-  </form>
-</app-modal>
+          rows="10"
+          formControlName="text"
+          placeholder="Describe..."
+        ></textarea>
+        @if (submitted && text?.invalid) {
+          <p class="text text--error">
+            This field is invalid.
+          </p>
+        }
+      </div>
+      <div class="buttons">
+        <button
+          class="button button-outline"
+          [disabled]="sending"
+          type="button"
+          (click)="cancel()"
+          >
+          Cancel
+        </button>
+        <button [disabled]="sending" type="submit">Save</button>
+      </div>
+    </form>
+  </app-modal>

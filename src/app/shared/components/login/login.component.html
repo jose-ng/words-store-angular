@@ -1,17 +1,27 @@
 <p><a routerLink="/">Home</a></p>
 <section class="login-container">
-  <div *ngIf="isLogin">
-    <h1>
-      <span *ngIf="isLogin">Welcome</span>
-      <span *ngIf="!isLogin">Create an Account</span>
-    </h1>
-    <p *ngIf="isLogin">Login or <a routerLink="/signup">Signup</a></p>
-    <!-- <app-login-form [InputisLogin]="isLogin"></app-login-form> -->
-  </div>
+  @if (isLogin) {
+    <div>
+      <h1>
+        @if (isLogin) {
+          <span>Welcome</span>
+        }
+        @if (!isLogin) {
+          <span>Create an Account</span>
+        }
+      </h1>
+      @if (isLogin) {
+        <p>Login or <a routerLink="/signup">Signup</a></p>
+      }
+      <!-- <app-login-form [InputisLogin]="isLogin"></app-login-form> -->
+    </div>
+  }
   <!-- TODO: SignUp page needs improvements -->
-  <div *ngIf="!isLogin">
-    <h1>Create an Account</h1>
-    <p>Under Development</p>
-    <p><a routerLink="/login">Login</a></p>
-  </div>
+  @if (!isLogin) {
+    <div>
+      <h1>Create an Account</h1>
+      <p>Under Development</p>
+      <p><a routerLink="/login">Login</a></p>
+    </div>
+  }
 </section>

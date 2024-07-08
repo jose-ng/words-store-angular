@@ -1,8 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* You can add global styles to this file, and also import other style files */
 @import "material-icons/iconfont/material-icons.css";
+@import "variables.scss";
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -29,7 +29,15 @@ body {
 }
 
 main {
+  width: 100%;
   min-height: calc(100vh - 170px);
+  padding: 1rem;
+
+  // Media Queries (Mobile first approach)
+  @media (min-width: ($x-large+1)) {
+    max-width: $x-large;
+    margin: 0 auto;
+  }
 }
 
 @layer utilities {

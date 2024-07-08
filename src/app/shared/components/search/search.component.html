@@ -1,17 +1,19 @@
-<div class="search-container">
+<section class="w-full relative inline-block">
   <input
+    class="pr-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
     #searchCtrl
     type="text"
     [(ngModel)]="searchQuery"
-    placeholder="Search for..."
+    placeholder="Search a word..."
     (input)="searchInput()"
-  />
-  <button
-    *ngIf="searchQuery"
-    type="button"
-    class="button button-clear"
-    (click)="clearInput()"
-  >
-    <span class="material-icons">close</span>
-  </button>
-</div>
+    />
+    @if (searchQuery) {
+      <button
+        type="button"
+        class="button button-clear absolute right-2 top-2"
+        (click)="clearInput()"
+        >
+        <span class="material-icons">close</span>
+      </button>
+    }
+  </section>

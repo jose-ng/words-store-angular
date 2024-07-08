@@ -1,81 +1,101 @@
 <section class="list-container">
-  <ul *ngIf="!showNotes">
-    <li
-      [ngClass]="item.hideAllText ? 'item item--hide-all-text' : 'item '"
-      *ngFor="let item of words"
-    >
-      <span class="ranting" *ngIf="userIsLoggedIn && item.hideAllText">
-        <button
-          class="button button-outline"
-          type="button"
-          (click)="updateRatingInput(item, 1, false)"
-          [disabled]="loading"
-        >
-          <span class="material-icons">keyboard_arrow_up</span>
-        </button>
-        <button
-          class="button button-outline"
-          type="button"
-          (click)="updateRatingInput(item, -1, false)"
-          [disabled]="loading"
-        >
-          <span class="material-icons">keyboard_arrow_down</span>
-        </button>
-      </span>
-      <span *ngIf="!item.hideAllText">
-        <b>{{ item.text_en }}:</b>
-        <pre> <div>{{ item.text_es }}</div><div>rating: {{item.rating}}</div> </pre>
-      </span>
-      <span *ngIf="item.hideAllText">
-        <b>{{ item.text_en }}</b
-        >: {{ item.text_es }}</span
-      >
-      <button
-        type="button"
-        class="button button-clear button-eye"
-        (click)="showDetailItem(item, !item.hideAllText)"
-      >
-        <span class="material-icons"> remove_red_eye </span>
-      </button>
-    </li>
-  </ul>
-  <ul *ngIf="showNotes">
-    <li
-      [ngClass]="item.hideAllText ? 'item item--hide-all-text' : 'item '"
-      *ngFor="let item of notes"
-    >
-      <!-- Todo: implement this then -->
-      <!-- <span
-        class="ranting"
-        *ngIf="item.hideAllText"
-        (click)="updateRatingInput(item, 1, true)"
-      >
-        <button class="button button-outline" type="button">
-          <span class="material-icons">keyboard_arrow_up</span>
-        </button>
-        <button
-          class="button button-outline"
-          type="button"
-          (click)="updateRatingInput(item, -1, true)"
-        >
-          <span class="material-icons">keyboard_arrow_down</span>
-        </button>
-      </span> -->
-      <span *ngIf="!item.hideAllText">
-        <b>{{ item.title }}:</b>
-        <pre> {{ item.text }} <br *ngIf="item.urlImg"> <img *ngIf="item.urlImg" [src]="item.urlImg" > </pre>
-      </span>
-      <span *ngIf="item.hideAllText">
-        <b>{{ item.title }}</b
-        >: {{ item.text }}</span
-      >
-      <button
-        type="button"
-        class="button button-clear button-eye"
-        (click)="showDetailItem(item, !item.hideAllText)"
-      >
-        <span class="material-icons"> remove_red_eye </span>
-      </button>
-    </li>
-  </ul>
-</section>
+  @if (!showNotes) {
+    <ul>
+      @for (item of words; track item) {
+        <li
+          [ngClass]="item.hideAllText ? 'item item--hide-all-text' : 'item '"
+          >
+          @if (userIsLoggedIn && item.hideAllText) {
+            <span class="ranting">
+              <button
+                class="button button-outline"
+                type="button"
+                (click)="updateRatingInput(item, 1, false)"
+                [disabled]="loading"
+                >
+                <span class="material-icons">keyboard_arrow_up</span>
+              </button>
+              <button
+                class="button button-outline"
+                type="button"
+                (click)="updateRatingInput(item, -1, false)"
+                [disabled]="loading"
+                >
+                <span class="material-icons">keyboard_arrow_down</span>
+              </button>
+            </span>
+          }
+          @if (!item.hideAllText) {
+            <span>
+              <b>{{ item.text_en }}:</b>
+              <pre> <div>{{ item.text_es }}</div><div>rating: {{item.rating}}</div> </pre>
+            </span>
+          }
+          @if (item.hideAllText) {
+            <span>
+              <b>{{ item.text_en }}</b
+                >: {{ item.text_es }}</span
+                >
+              }
+              <button
+                type="button"
+                class="button button-clear button-eye"
+                (click)="showDetailItem(item, !item.hideAllText)"
+                >
+                <span class="material-icons"> remove_red_eye </span>
+              </button>
+            </li>
+          }
+        </ul>
+      }
+      @if (showNotes) {
+        <ul>
+          @for (item of notes; track item) {
+            <li
+              [ngClass]="item.hideAllText ? 'item item--hide-all-text' : 'item '"
+              >
+              <!-- Todo: implement this then -->
+              <!-- <span
+              class="ranting"
+              *ngIf="item.hideAllText"
+              (click)="updateRatingInput(item, 1, true)"
+              >
+              <button class="button button-outline" type="button">
+                <span class="material-icons">keyboard_arrow_up</span>
+              </button>
+              <button
+                class="button button-outline"
+                type="button"
+                (click)="updateRatingInput(item, -1, true)"
+                >
+                <span class="material-icons">keyboard_arrow_down</span>
+              </button>
+            </span> -->
+            @if (!item.hideAllText) {
+              <span>
+                <b>{{ item.title }}:</b>
+                <pre> {{ item.text }} @if (item.urlImg) {
+                  <br>
+                    } @if (item.urlImg) {
+                    <img [src]="item.urlImg" >
+                  } </pre>
+                </span>
+              }
+              @if (item.hideAllText) {
+                <span>
+                  <b>{{ item.title }}</b
+                    >: {{ item.text }}</span
+                    >
+                  }
+                  <button
+                    type="button"
+                    class="button button-clear button-eye"
+                    (click)="showDetailItem(item, !item.hideAllText)"
+                    >
+                    <span class="material-icons"> remove_red_eye </span>
+                  </button>
+                </li>
+              }
+            </ul>
+          }
+        </section>

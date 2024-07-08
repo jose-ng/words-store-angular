@@ -11,37 +11,41 @@
         type="text"
         formControlName="text_es"
         placeholder="Spanish Word"
-      />
-      <p class="text text--error" *ngIf="submitted && text_es?.invalid">
-        This field is invalid.
-      </p>
-    </div>
-    <div>
-      <label for="text_en">English Word</label>
-      <input
-        id="text_en"
+        />
+        @if (submitted && text_es?.invalid) {
+          <p class="text text--error">
+            This field is invalid.
+          </p>
+        }
+      </div>
+      <div>
+        <label for="text_en">English Word</label>
+        <input
+          id="text_en"
         [ngClass]="{
           'input input--success': submitted && text_en?.valid,
           'input input--error': submitted && text_en?.invalid
         }"
-        type="text"
-        formControlName="text_en"
-        placeholder="English Word"
-      />
-      <p class="text text--error" *ngIf="submitted && text_en?.invalid">
-        This field is invalid.
-      </p>
-    </div>
-    <div class="buttons">
-      <button
-        class="button button-outline"
-        [disabled]="sending"
-        type="button"
-        (click)="cancel()"
-      >
-        Cancel
-      </button>
-      <button [disabled]="sending" type="submit">Save</button>
-    </div>
-  </form>
-</app-modal>
+          type="text"
+          formControlName="text_en"
+          placeholder="English Word"
+          />
+          @if (submitted && text_en?.invalid) {
+            <p class="text text--error">
+              This field is invalid.
+            </p>
+          }
+        </div>
+        <div class="buttons">
+          <button
+            class="button button-outline"
+            [disabled]="sending"
+            type="button"
+            (click)="cancel()"
+            >
+            Cancel
+          </button>
+          <button [disabled]="sending" type="submit">Save</button>
+        </div>
+      </form>
+    </app-modal>
