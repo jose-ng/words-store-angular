@@ -1,3 +1,4 @@
+import { AuthService } from '@/src/app/services/auth.service';
 import { Component, signal } from '@angular/core';
 
 @Component({
@@ -6,7 +7,8 @@ import { Component, signal } from '@angular/core';
 })
 export class HeaderComponent {
   showNav = signal(false);
-
+  public isAuthorized$ = this.authService.isAuthorized$;
+  constructor(private authService: AuthService) {}
   collapseNavbar() {
     this.showNav.update((prev) => !prev);
   }

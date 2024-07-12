@@ -59,3 +59,9 @@
     </nav>
   </div>
 </header>
+
+@if (isAuthorized$ | async) {
+<span>123</span>
+} @else {
+<span>456</span>
+}

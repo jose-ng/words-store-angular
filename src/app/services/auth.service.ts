@@ -1,29 +1,25 @@
-// import {
-//   Auth,
-//   createUserWithEmailAndPassword,
-//   signInWithEmailAndPassword,
-//   signOut,
-// } from '@angular/fire/auth';
-
 import { Injectable } from '@angular/core';
-import { LoginData } from '@models/login.model';
-import { of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Select, Store } from '@ngxs/store';
+import { Login, Logout, Register } from '../auth/auth.actions';
+import { AuthState } from '../auth/auth.state';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor() {}
-
-  login({ email, password }: LoginData) {
-    return of({ email, password });
+  @Select(AuthState.isAuthenticated) isAuthorized$!: Observable<boolean>;
+  constructor(private store: Store) { }
+ 
+  public login(email: string, password: string): void {
+    this.store.dispatch(new Login({ email, password }));
   }
 
-  signup({ email, password }: LoginData) {
-    return of({ email, password });
+  public logout(): void {
+    this.store.dispatch(new Logout());
   }
 
-  logout() {
-    return null
+  public register(email: string, password: string): void {
+    this.store.dispatch(new Register({ email, password }));
   }
 }

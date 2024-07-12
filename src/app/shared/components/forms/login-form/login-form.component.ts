@@ -61,12 +61,12 @@ export class LoginFormComponent {
             // this.tokenService.saveToken(tokenData);
             this.router.navigate(['/']);
          
-      else
-        this.authService
-          .signup(this.form.value)
+      // else
+      //   this.authService
+      //     .signup(this.form.value)
           
-            this.sending = false;
-            this.router.navigate(['/login']);
+      //       this.sending = false;
+      //       this.router.navigate(['/login']);
          
     } else {
       this.form.markAllAsTouched();
